@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajita Shah — Multidimensional Healer</title>
+  <meta name="description" content="Renowned global spiritual healer. OmniSource Healing, Inner OS and Becoming Unlimited — healing humanity to awaken higher consciousness.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ══════════ PRELOADER ══════════ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-ring"></div>
+      <div class="preloader-name">AJITA&nbsp;SHAH</div>
+      <div class="preloader-count" id="preloaderCount">0</div>
+    </div>
+  </div>
+
+  <!-- ══════════ CURSOR ══════════ -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ══════════ NAV ══════════ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav-logo" data-hover>Ajita <em>Shah</em></a>
+    <nav class="nav-links">
+      <a href="#healer" data-hover>The Healer</a>
+      <a href="#journey" data-hover>The Journey</a>
+      <a href="#programs" data-hover>Programs</a>
+      <a href="#voices" data-hover>Voices</a>
+    </nav>
+    <a href="#begin" class="nav-cta" data-hover>Begin Your Journey</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="hero" id="hero">
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+      <div class="hero-vignette"></div>
+      <div class="hero-content">
+        <p class="hero-kicker" data-hero-fade>MULTIDIMENSIONAL&nbsp;HEALER</p>
+        <h1 class="hero-title" id="heroTitle" aria-label="Ajita Shah">Ajita Shah</h1>
+        <p class="hero-sub" data-hero-fade>Healing humanity to awaken higher consciousness —<br>
+        beyond the body, beyond the mind, beyond time.</p>
+        <div class="hero-actions" data-hero-fade>
+          <a href="#begin" class="btn-gold" data-hover>Work With Ajita</a>
+          <a href="#healer" class="btn-ghost" data-hover>Discover Her Gift</a>
+        </div>
+      </div>
+      <div class="hero-scroll" data-hero-fade>
+        <span></span>
+        <p>Scroll to begin</p>
+      </div>
+    </section>
+
+    <!-- ══════════ MARQUEE ══════════ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Health <i>✦</i> Money <i>✦</i> Success <i>✦</i> Relationships <i>✦</i> Purpose <i>✦</i>&nbsp;</span>
+        <span>Health <i>✦</i> Money <i>✦</i> Success <i>✦</i> Relationships <i>✦</i> Purpose <i>✦</i>&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ══════════ CHECK-IN · TRAUMA-INFORMED INTAKE ══════════ -->
+    <section class="checkin" id="checkin">
+      <div class="ci-inner">
+
+        <!-- STEP 1 · the question -->
+        <div class="ci-step is-active" data-step="1">
+          <p class="section-label centered">A moment, before anything else</p>
+          <h2 class="ci-question">How are you, <em>really?</em></h2>
+          <p class="ci-permission">You don't need a reason big enough to be here.
+          And if you've been handling it alone until now — that took strength, not stubbornness.</p>
+          <p class="ci-privacy">Nothing you choose here is saved or sent anywhere.
+          It stays in your browser. Pick whatever sits closest — or keep looking around.</p>
+          <div class="ci-options">
+            <button class="ci-option" data-key="exhausted" data-hover>
+              I'm exhausted and I can't explain why</button>
+            <button class="ci-option" data-key="stuck" data-hover>
+              Something happened and I can't move past it</button>
+            <button class="ci-option" data-key="mask" data-hover>
+              I look fine on the outside</button>
+            <button class="ci-option" data-key="patterns" data-hover>
+              I keep repeating the same patterns</button>
+            <button class="ci-option is-quiet" data-key="looking" data-hover>
+              I'm okay — I'm just looking around</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 · optional words -->
+        <div class="ci-step" data-step="2">
+          <p class="section-label centered">In your own words, if you want to</p>
+          <h2 class="ci-question ci-question-sm" id="ciEcho"></h2>
+          <label class="ci-label" for="ciText">Is there anything you'd like to say? There's no wrong way to
+          put it, and you can leave this empty.</label>
+          <textarea id="ciText" class="ci-text" rows="5"
+            placeholder="Whatever comes out first is fine."></textarea>
+          <p class="ci-privacy ci-privacy-tight">This text never leaves your browser unless you choose
+          to share it. Nothing is recorded while you type.</p>
+          <div class="ci-actions">
+            <button class="btn-gold" data-ci-next data-hover>Continue</button>
+            <button class="ci-skip" data-ci-next data-hover>I'd rather not write anything</button>
+          </div>
+          <p class="ci-crisis">If you're in crisis right now, please call or text <strong>9-8-8</strong>
+          — free, confidential, any hour of the day.</p>
+        </div>
+
+        <!-- STEP 3 · reflection + gentle routing -->
+        <div class="ci-step" data-step="3">
+          <div class="ci-pacer" aria-hidden="true"><span></span></div>
+          <p class="ci-pacer-note">Breathe with the ring, if you'd like.</p>
+          <p class="ci-reflection" id="ciReflection"></p>
+          <div class="ci-actions ci-actions-center" id="ciRoute"></div>
+          <button class="ci-restart" id="ciRestart" data-hover>Start this over</button>
+          <p class="ci-crisis">If you're in crisis right now, please call or text <strong>9-8-8</strong>
+          — free, confidential, any hour of the day.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ THE HEALER · PARTICLE PORTRAIT ══════════ -->
+    <section class="healer" id="healer">
+      <div class="healer-grid">
+        <div class="healer-text">
+          <p class="section-label" data-reveal>01 — The Healer</p>
+          <h2 class="section-title" data-reveal>A rare, innate<br>gift to <em>heal</em></h2>
+          <p class="lede" data-reveal>Ajita is a globally recognized spiritual healer whose work
+          blends subtle energy, frequency, quantum principles and conscious intention into one
+          integrated, permanent transformative experience.</p>
+          <p class="body-copy" data-reveal>As the creator of the <strong>OmniSource Healing</strong> modality,
+          she works beyond conventional methods — tapping directly into each individual's energetic
+          and holographic blueprint to create lasting transformation across the physical, emotional,
+          mental and spiritual dimensions.</p>
+          <div class="healer-stats" data-reveal>
+            <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-plus">+</span><p>Years of practice</p></div>
+            <div class="stat"><span class="stat-num" data-count="30">0</span><span class="stat-plus">+</span><p>Countries reached</p></div>
+            <div class="stat"><span class="stat-num" data-count="1000">0</span><span class="stat-plus">+</span><p>Lives transformed</p></div>
+          </div>
+        </div>
+        <div class="healer-visual">
+          <canvas id="portraitCanvas" aria-label="Portrait of Ajita Shah formed from golden light"></canvas>
+          <p class="visual-hint">Move your cursor through the light</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ MANIFESTO ══════════ -->
+    <section class="manifesto" id="manifesto">
+      <p class="manifesto-text" id="manifestoText">Healing is not about removing what feels heavy.
+      Energy does not vanish — it transforms. From resistance to awareness. From weight to clarity.
+      From pain to understanding. You are not broken. You are remembering who you already are.</p>
+    </section>
+
+    <!-- ══════════ JOURNEY · PARALLAX ══════════ -->
+    <section class="journey" id="journey">
+      <div class="journey-media">
+        <img src="assets/hero-caves.webp" alt="Ajita Shah seated before ancient cave temples" class="journey-img" id="journeyImg">
+        <div class="journey-overlay"></div>
+      </div>
+      <div class="journey-content">
+        <p class="section-label light" data-reveal>02 — The Journey</p>
+        <h2 class="journey-quote" data-reveal>“Where ancient wisdom<br>meets <em>quantum healing</em>”</h2>
+        <p class="journey-sub" data-reveal>From the sacred caves of India to leaders and changemakers
+        across the world — Ajita guides the shift from 3D paradigms of success into
+        higher-frequency living.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ PROGRAMS ══════════ -->
+    <section class="programs" id="programs">
+      <div class="programs-head">
+        <p class="section-label" data-reveal>03 — The Work</p>
+        <h2 class="section-title" data-reveal>Three doorways.<br>One <em>awakening.</em></h2>
+      </div>
+      <div class="programs-grid">
+        <article class="program-card" data-tilt data-reveal>
+          <span class="card-num">01</span>
+          <h3>OmniSource<br>Healing</h3>
+          <p class="card-tag">Private 1 : 1</p>
+          <p>An exclusive, private healing experience leading to colossal transformation.
+          Ajita works directly with your energetic blueprint — one soul at a time.</p>
+          <a href="#begin" class="card-link" data-hover>Request a session <i>→</i></a>
+          <div class="card-glow"></div>
+        </article>
+        <article class="program-card featured" data-tilt data-reveal>
+          <span class="card-num">02</span>
+          <h3>Inner OS™</h3>
+          <p class="card-tag">Conscious Leadership</p>
+          <p>The foundation for clear decisions, stable teams and scalable leadership.
+          Rewrite the inner operating system that quietly shapes every result in your life.</p>
+          <a href="#begin" class="card-link" data-hover>Explore the program <i>→</i></a>
+          <div class="card-glow"></div>
+        </article>
+        <article class="program-card" data-tilt data-reveal>
+          <span class="card-num">03</span>
+          <h3>Becoming<br>Unlimited</h3>
+          <p class="card-tag">Free Healing Circle</p>
+          <p>A free online healing and awakening circle — shift your energy, dissolve emotional
+          wounds and return to your power, together.</p>
+          <a href="#begin" class="card-link" data-hover>Join the circle <i>→</i></a>
+          <div class="card-glow"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ VOICES ══════════ -->
+    <section class="voices" id="voices">
+      <p class="section-label centered" data-reveal>04 — Voices</p>
+      <div class="voices-slider" id="voicesSlider">
+        <blockquote class="voice active">
+          <p>“After twelve years of searching and every therapy possible, only Ajita's healing
+          brought relief. Within four weeks, I was unrecognizable.”</p>
+          <cite>— Samia</cite>
+        </blockquote>
+        <blockquote class="voice">
+          <p>“I quit a decades-old habit after six weeks of healing. It simply released me.”</p>
+          <cite>— Michelle</cite>
+        </blockquote>
+        <blockquote class="voice">
+          <p>“Ajita saved my business. What felt impossible resolved itself within weeks.”</p>
+          <cite>— Stuart</cite>
+        </blockquote>
+        <blockquote class="voice">
+          <p>“My ten-year-old son found peace in two sessions. I still can't explain it — I'm
+          just grateful.”</p>
+          <cite>— Raouf</cite>
+        </blockquote>
+      </div>
+      <div class="voices-nav">
+        <button id="voicePrev" data-hover aria-label="Previous testimonial">←</button>
+        <div class="voices-dots" id="voicesDots"></div>
+        <button id="voiceNext" data-hover aria-label="Next testimonial">→</button>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="begin" id="begin">
+      <canvas class="begin-canvas" id="beginCanvas"></canvas>
+      <div class="begin-content">
+        <h2 data-reveal>Your healing has<br>already <em>begun.</em></h2>
+        <p data-reveal>The moment you arrived here was not an accident.
+        Take the first step — the rest will meet you.</p>
+        <div class="begin-actions" data-reveal>
+          <a href="#" class="btn-gold large" data-hover>Book a Private Session</a>
+        </div>
+        <p class="begin-note" data-reveal>Or join the free Becoming Unlimited circle</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <a href="#top" class="footer-logo" data-hover>Ajita <em>Shah</em></a>
+      <nav class="footer-links">
+        <a href="#healer" data-hover>About</a>
+        <a href="#programs" data-hover>Programs</a>
+        <a href="#voices" data-hover>Testimonials</a>
+        <a href="#begin" data-hover>Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/ajitashahofficial/" target="_blank" rel="noopener" data-hover>Instagram</a>
+        <a href="https://www.youtube.com/@ajitashah_official" target="_blank" rel="noopener" data-hover>YouTube</a>
+        <a href="https://www.linkedin.com/in/theajitashah" target="_blank" rel="noopener" data-hover>LinkedIn</a>
+        <a href="https://www.tiktok.com/@ajitashah_official" target="_blank" rel="noopener" data-hover>TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Ajita Shah. All rights reserved.</p>
+      <p class="footer-credit">Concept design — Jobaki</p>
+    </div>
+  </footer>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="js/webgl.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
