@@ -95,7 +95,9 @@
   }
   </script>
 </head>
-<body>
+<!-- BOOKING: paste a Cal.com/Calendly event URL into data-booking-url and every
+     booking CTA on the page goes live. Empty = phone fallback. -->
+<body data-booking-url="">
 
   <!-- ══════════ PRELOADER ══════════ -->
   <div class="preloader" id="preloader">
@@ -419,7 +421,7 @@
         <p data-reveal>The moment you arrived here was not an accident.
         Take the first step — the rest will meet you.</p>
         <div class="begin-actions" data-reveal>
-          <a href="#" class="btn-gold large" data-hover>Book a Private Session</a>
+          <button class="btn-gold large" id="beginBook" data-hover>Book a Private Session</button>
         </div>
         <p class="begin-note" data-reveal>Or join the free Becoming Unlimited circle</p>
       </div>

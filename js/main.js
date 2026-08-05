@@ -486,6 +486,10 @@
     var state = { area: null, heavy: 0, qi: 0, book: {} };
     var open = false, greeted = false;
 
+    // One place to turn booking on: <body data-booking-url="…">.
+    // Empty string = phone fallback until the scheduler account exists.
+    var BOOKING_URL = (document.body.getAttribute('data-booking-url') || '').trim();
+
     /* — rendering — */
     function addMsg(cls, html) {
       var d = document.createElement('div');
@@ -692,9 +696,16 @@
       lines.push('<strong>How long:</strong> ' + (b.duration || '(skipped)'));
       lines.push('<strong>Help before:</strong> ' + (b.prior || '(skipped)'));
       bot('Here is what you shared — it lives only on your screen:<br><br>' + lines.join('<br>'));
-      bot('The fastest way to reach Ajita right now is to call or text her at ' +
-          '<a href="tel:+14165793700">+1 416 579 3700</a>. Mention whatever feels ' +
-          'right from the above — or none of it. Online booking is on its way.');
+      if (BOOKING_URL) {
+        bot('Whenever you\'re ready: <a href="' + BOOKING_URL + '" target="_blank" ' +
+            'rel="noopener">pick a time with Ajita →</a><br><br>Bring whatever feels ' +
+            'right from the above — or none of it. You can also call or text her at ' +
+            '<a href="tel:+14165793700">+1 416 579 3700</a>.');
+      } else {
+        bot('The fastest way to reach Ajita right now is to call or text her at ' +
+            '<a href="tel:+14165793700">+1 416 579 3700</a>. Mention whatever feels ' +
+            'right from the above — or none of it. Online booking is on its way.');
+      }
       chips([
         { label: 'Start over', fn: function () { state = { area: null, heavy: 0, qi: 0, book: {} }; pickArea(); }, quiet: true },
         { label: 'Close', fn: close, quiet: true }
@@ -718,6 +729,20 @@
     }
     launcher.addEventListener('click', openPanel);
     document.getElementById('chatClose').addEventListener('click', close);
+
+    // "Book a Private Session" opens the guide straight at the intake
+    // questions — every booking path runs through the same gentle flow.
+    var beginBook = document.getElementById('beginBook');
+    if (beginBook) {
+      beginBook.addEventListener('click', function () {
+        panel.hidden = false;
+        launcher.setAttribute('aria-expanded', 'true');
+        open = true;
+        greeted = true;
+        user('Book a Private Session');
+        bookStart();
+      });
+    }
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) close();
       // basic focus containment while open
