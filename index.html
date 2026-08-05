@@ -3,12 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ajita Shah — Multidimensional Healer</title>
-  <meta name="description" content="Renowned global spiritual healer. OmniSource Healing, Inner OS and Becoming Unlimited — healing humanity to awaken higher consciousness.">
+  <title>Spiritual Healer in Toronto | Energy Healing &amp; Coaching — Ajita Shah</title>
+  <meta name="description" content="Ajita Shah is a spiritual healer and teacher in Toronto, Ontario, offering private energy healing sessions, a self-paced course, and a free online healing circle. Start wherever feels right.">
+  <link rel="canonical" href="https://ajitashah.com/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- Open Graph · her live site has none, so every share renders as a bare URL -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ajita Shah">
+  <meta property="og:title" content="Spiritual Healer in Toronto | Ajita Shah">
+  <meta property="og:description" content="A calm place to slow down, feel heard, and begin at whatever pace is yours. Private healing sessions, a self-paced course, and a free healing circle.">
+  <meta property="og:url" content="https://ajitashah.com/">
+  <meta property="og:image" content="https://ajitashah.com/assets/og-image.jpg">
+  <meta property="og:image:alt" content="Ajita Shah">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Spiritual Healer in Toronto | Ajita Shah">
+  <meta name="twitter:description" content="A calm place to slow down, feel heard, and begin at whatever pace is yours.">
+  <meta name="twitter:image" content="https://ajitashah.com/assets/og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Structured data. No credentialing or medical claims asserted anywhere;
+       jobTitle stays clear of Ontario's restricted titles. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://ajitashah.com/#ajita",
+        "name": "Ajita Shah",
+        "jobTitle": "Spiritual Healer and Teacher",
+        "url": "https://ajitashah.com/",
+        "image": "https://ajitashah.com/assets/headshot.jpg",
+        "sameAs": [
+          "https://www.instagram.com/ajitashahofficial/",
+          "https://www.linkedin.com/in/theajitashah",
+          "https://www.youtube.com/@ajitashah_official",
+          "https://www.tiktok.com/@ajitashah_official"
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://ajitashah.com/#practice",
+        "name": "Ajita Shah — Spiritual and Energy Healing",
+        "url": "https://ajitashah.com/",
+        "founder": { "@id": "https://ajitashah.com/#ajita" },
+        "areaServed": [
+          { "@type": "City", "name": "Toronto" },
+          { "@type": "AdministrativeArea", "name": "Ontario" },
+          { "@type": "Country", "name": "Canada" }
+        ],
+        "availableLanguage": "English",
+        "description": "Private energy healing sessions, a self-paced course, and a free online healing circle. Not medical or psychological care."
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ajitashah.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is this therapy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Ajita offers spiritual and energy healing and coaching. This is not therapy, psychological treatment, or medical care, and it is not a substitute for professional help."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I am in crisis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Please call or text 9-8-8, Canada's Suicide Crisis Helpline, available 24 hours a day in English and French. If you are in immediate danger, call 911."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where should I start?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most people start with the free online healing circle. There is no need to begin further along the ladder than feels comfortable."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -34,28 +119,47 @@
       <a href="#programs" data-hover>Programs</a>
       <a href="#voices" data-hover>Voices</a>
     </nav>
-    <a href="#begin" class="nav-cta" data-hover>Begin Your Journey</a>
+    <div class="nav-right">
+      <button class="nav-motion" id="motionToggle" data-hover
+        aria-pressed="false">Reduce motion</button>
+      <a href="#checkin" class="nav-cta" data-hover>Find where to start</a>
+    </div>
   </header>
 
   <main id="top">
 
-    <!-- ══════════ HERO ══════════ -->
+    <!-- ══════════ HERO · BREATHING CIRCLE ══════════ -->
     <section class="hero" id="hero">
-      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+      <!-- Decorative. The LCP element is the headline below, not this. -->
+      <div class="breath" id="breath" aria-hidden="true">
+        <div class="breath-glow"></div>
+        <div class="breath-ring breath-ring-outer"></div>
+        <div class="breath-ring breath-ring-mid"></div>
+        <div class="breath-core"></div>
+      </div>
       <div class="hero-vignette"></div>
+
       <div class="hero-content">
-        <p class="hero-kicker" data-hero-fade>MULTIDIMENSIONAL&nbsp;HEALER</p>
-        <h1 class="hero-title" id="heroTitle" aria-label="Ajita Shah">Ajita Shah</h1>
-        <p class="hero-sub" data-hero-fade>Healing humanity to awaken higher consciousness —<br>
-        beyond the body, beyond the mind, beyond time.</p>
-        <div class="hero-actions" data-hero-fade>
-          <a href="#begin" class="btn-gold" data-hover>Work With Ajita</a>
-          <a href="#healer" class="btn-ghost" data-hover>Discover Her Gift</a>
+        <p class="hero-kicker">HEALER&nbsp;·&nbsp;SPIRITUAL&nbsp;TEACHER</p>
+        <h1 class="hero-title">You're welcome here,<br>exactly as <em>you are.</em></h1>
+        <p class="hero-sub">A calm place to slow down, feel heard,<br>
+        and begin at whatever pace is yours.</p>
+        <div class="hero-actions">
+          <a href="#checkin" class="btn-gold" data-hover>Find where to start</a>
+          <button class="btn-ghost" id="breathStart" data-hover>Take a breath with me</button>
+        </div>
+
+        <!-- Guided breath · opt-in only, always stoppable -->
+        <div class="breath-guide" id="breathGuide" hidden>
+          <p class="breath-phase" id="breathPhase" role="status" aria-live="polite">Breathe in</p>
+          <div class="breath-progress"><span id="breathProgress"></span></div>
+          <button class="breath-stop" id="breathStop" data-hover>Stop</button>
         </div>
       </div>
-      <div class="hero-scroll" data-hero-fade>
+
+      <div class="hero-scroll">
         <span></span>
-        <p>Scroll to begin</p>
+        <p>Take your time</p>
       </div>
     </section>
 
@@ -73,21 +177,27 @@
 
         <!-- STEP 1 · the question -->
         <div class="ci-step is-active" data-step="1">
+          <img src="assets/portrait-warm.jpg" alt="Ajita Shah seated, resting her chin on her hand, smiling at the camera"
+            class="ci-portrait" width="1400" height="985" loading="lazy" decoding="async">
           <p class="section-label centered">A moment, before anything else</p>
           <h2 class="ci-question">How are you, <em>really?</em></h2>
           <p class="ci-permission">You don't need a reason big enough to be here.
           And if you've been handling it alone until now — that took strength, not stubbornness.</p>
           <p class="ci-privacy">Nothing you choose here is saved or sent anywhere.
           It stays in your browser. Pick whatever sits closest — or keep looking around.</p>
+          <!-- Written in her clients' own words, taken from what people
+               actually say in their first message to Ajita. -->
           <div class="ci-options">
-            <button class="ci-option" data-key="exhausted" data-hover>
-              I'm exhausted and I can't explain why</button>
             <button class="ci-option" data-key="stuck" data-hover>
-              Something happened and I can't move past it</button>
-            <button class="ci-option" data-key="mask" data-hover>
-              I look fine on the outside</button>
-            <button class="ci-option" data-key="patterns" data-hover>
-              I keep repeating the same patterns</button>
+              I feel stuck in my life and I can't see the way out</button>
+            <button class="ci-option" data-key="home" data-hover>
+              Things aren't right at home</button>
+            <button class="ci-option" data-key="work" data-hover>
+              I'm overlooked at work, no matter what I do</button>
+            <button class="ci-option" data-key="money" data-hover>
+              Money and my business are keeping me awake</button>
+            <button class="ci-option" data-key="giving" data-hover>
+              I give everything, and it's still never enough</button>
             <button class="ci-option is-quiet" data-key="looking" data-hover>
               I'm okay — I'm just looking around</button>
           </div>
@@ -138,15 +248,18 @@
           she works beyond conventional methods — tapping directly into each individual's energetic
           and holographic blueprint to create lasting transformation across the physical, emotional,
           mental and spiritual dimensions.</p>
+          <!-- Only confirmed facts. The earlier "30+ countries" and
+               "1,000+ lives" were placeholders and are removed until verified. -->
           <div class="healer-stats" data-reveal>
-            <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-plus">+</span><p>Years of practice</p></div>
-            <div class="stat"><span class="stat-num" data-count="30">0</span><span class="stat-plus">+</span><p>Countries reached</p></div>
-            <div class="stat"><span class="stat-num" data-count="1000">0</span><span class="stat-plus">+</span><p>Lives transformed</p></div>
+            <div class="stat"><span class="stat-num" data-count="35">0</span><span class="stat-plus">+</span><p>Years of practice</p></div>
+            <div class="stat"><span class="stat-num" data-count="90">0</span><p>Day programs</p></div>
+            <div class="stat"><span class="stat-text">Toronto</span><p>Canada</p></div>
           </div>
         </div>
         <div class="healer-visual">
-          <canvas id="portraitCanvas" aria-label="Portrait of Ajita Shah formed from golden light"></canvas>
-          <p class="visual-hint">Move your cursor through the light</p>
+          <img src="assets/healer-studio.jpg"
+            alt="Ajita Shah standing beside a white fireplace in a bright room"
+            class="healer-portrait" width="1600" height="1067" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -173,38 +286,93 @@
       </div>
     </section>
 
+    <!-- ══════════ SCORECARD · SIX AREAS ══════════
+         Ajita's six-category set. Deliberately NOT presented as a score:
+         a distressed visitor should not be graded. We name what feels heavy
+         and reflect it back. Entirely client-side — nothing is transmitted.
+    ══════════════════════════════════════════════ -->
+    <section class="scorecard" id="scorecard">
+      <div class="sc-inner">
+
+        <div class="sc-step is-active" data-sc="intro">
+          <p class="section-label centered" data-reveal>05 — Where things stand</p>
+          <h2 class="section-title centered" data-reveal>Six areas.<br>Six <em>honest answers.</em></h2>
+          <p class="sc-lede" data-reveal>Ajita's work usually starts by looking at life in six
+          parts. It takes about thirty seconds, there's no score at the end, and nothing you
+          tap is saved or sent anywhere.</p>
+          <button class="btn-gold" id="scStart" data-hover>Begin</button>
+        </div>
+
+        <div class="sc-step" data-sc="q">
+          <div class="sc-progress" aria-hidden="true"><span id="scBar"></span></div>
+          <p class="sc-count" id="scCount">1 of 6</p>
+          <p class="sc-category" id="scCategory"></p>
+          <h2 class="sc-question" id="scQuestion" role="status" aria-live="polite"></h2>
+          <div class="sc-answers">
+            <button class="btn-ghost" data-sc-answer="yes" data-hover>Yes</button>
+            <button class="btn-ghost" data-sc-answer="no" data-hover>No</button>
+          </div>
+          <button class="sc-quit" id="scQuit" data-hover>I'd rather stop</button>
+        </div>
+
+        <div class="sc-step" data-sc="result">
+          <p class="section-label centered">What you told us</p>
+          <h2 class="sc-result-head" id="scResultHead"></h2>
+          <ul class="sc-areas" id="scAreas"></ul>
+          <p class="sc-result-note" id="scResultNote"></p>
+          <div class="sc-actions" id="scActions"></div>
+          <button class="sc-quit" id="scRestart" data-hover>Start over</button>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ══════════ PROGRAMS ══════════ -->
     <section class="programs" id="programs">
       <div class="programs-head">
         <p class="section-label" data-reveal>03 — The Work</p>
-        <h2 class="section-title" data-reveal>Three doorways.<br>One <em>awakening.</em></h2>
+        <h2 class="section-title" data-reveal>Three ways in.<br>Start at the <em>lowest step.</em></h2>
+        <p class="programs-lede" data-reveal>There's no correct place to begin, and no reason
+        to start further along than feels right. Most people start with the circle — it's free,
+        and it costs you nothing to see whether this is for you.</p>
       </div>
+
+      <!-- Conversion ladder · root to crown -->
       <div class="programs-grid">
         <article class="program-card" data-tilt data-reveal>
-          <span class="card-num">01</span>
-          <h3>OmniSource<br>Healing</h3>
-          <p class="card-tag">Private 1 : 1</p>
-          <p>An exclusive, private healing experience leading to colossal transformation.
-          Ajita works directly with your energetic blueprint — one soul at a time.</p>
-          <a href="#begin" class="card-link" data-hover>Request a session <i>→</i></a>
-          <div class="card-glow"></div>
-        </article>
-        <article class="program-card featured" data-tilt data-reveal>
-          <span class="card-num">02</span>
-          <h3>Inner OS™</h3>
-          <p class="card-tag">Conscious Leadership</p>
-          <p>The foundation for clear decisions, stable teams and scalable leadership.
-          Rewrite the inner operating system that quietly shapes every result in your life.</p>
-          <a href="#begin" class="card-link" data-hover>Explore the program <i>→</i></a>
-          <div class="card-glow"></div>
-        </article>
-        <article class="program-card" data-tilt data-reveal>
-          <span class="card-num">03</span>
-          <h3>Becoming<br>Unlimited</h3>
-          <p class="card-tag">Free Healing Circle</p>
-          <p>A free online healing and awakening circle — shift your energy, dissolve emotional
-          wounds and return to your power, together.</p>
+          <span class="stage-dot" style="--stage: var(--ch-root)" aria-hidden="true"></span>
+          <p class="card-tag">Free · Becoming Unlimited</p>
+          <h3>The healing<br>circle</h3>
+          <p>A free online circle. You can keep your camera off and say nothing at all.
+          Many people sit quietly for months before they ever speak.</p>
+          <p class="card-fit"><strong>For you if</strong> you're curious but not ready to
+          commit to anything.</p>
           <a href="#begin" class="card-link" data-hover>Join the circle <i>→</i></a>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="program-card" data-tilt data-reveal>
+          <span class="stage-dot" style="--stage: var(--ch-throat)" aria-hidden="true"></span>
+          <p class="card-tag">90-day group program · USD&nbsp;$399</p>
+          <h3>Rewrite Your<br>Destiny</h3>
+          <p>Ninety days in a small group, working through the patterns underneath the things
+          that keep repeating — in your relationships, your work, your money.</p>
+          <p class="card-fit"><strong>For you if</strong> you'd rather not do this alone, and
+          you're ready to give it real time.</p>
+          <a href="#begin" class="card-link" data-hover>Join the next group <i>→</i></a>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="program-card featured" data-tilt data-reveal>
+          <span class="stage-dot" style="--stage: var(--ch-crown)" aria-hidden="true"></span>
+          <p class="card-tag">90 days, private · USD&nbsp;$6,000</p>
+          <h3>Bespoke healing<br>&amp; guidance</h3>
+          <p>Ninety days working privately with Ajita, one to one. Shaped entirely around your
+          situation. Limited by how many people she can hold properly at once — so it begins
+          with a conversation, not a payment.</p>
+          <p class="card-fit"><strong>Not for you if</strong> you're looking for a quick fix,
+          or for medical or psychological care.</p>
+          <a href="#begin" class="card-link" data-hover>Ask about working together <i>→</i></a>
           <div class="card-glow"></div>
         </article>
       </div>
@@ -215,8 +383,8 @@
       <p class="section-label centered" data-reveal>04 — Voices</p>
       <div class="voices-slider" id="voicesSlider">
         <blockquote class="voice active">
-          <p>“After twelve years of searching and every therapy possible, only Ajita's healing
-          brought relief. Within four weeks, I was unrecognizable.”</p>
+          <p>“I had been searching for twelve years. Sitting with Ajita was the first time
+          I felt genuinely heard rather than assessed.”</p>
           <cite>— Samia</cite>
         </blockquote>
         <blockquote class="voice">
@@ -238,11 +406,14 @@
         <div class="voices-dots" id="voicesDots"></div>
         <button id="voiceNext" data-hover aria-label="Next testimonial">→</button>
       </div>
+      <p class="voices-disclaimer">Shared with permission. These are individual
+      experiences and describe how people felt about their time with Ajita.
+      Results vary. This is not medical or psychological advice or treatment.</p>
     </section>
 
     <!-- ══════════ CTA ══════════ -->
     <section class="begin" id="begin">
-      <canvas class="begin-canvas" id="beginCanvas"></canvas>
+      <div class="begin-glow" aria-hidden="true"></div>
       <div class="begin-content">
         <h2 data-reveal>Your healing has<br>already <em>begun.</em></h2>
         <p data-reveal>The moment you arrived here was not an accident.
@@ -266,6 +437,10 @@
         <a href="#voices" data-hover>Testimonials</a>
         <a href="#begin" data-hover>Contact</a>
       </nav>
+      <div class="footer-contact">
+        <a href="tel:+14165793700" data-hover>+1 416 579 3700</a>
+        <p class="footer-locale">Toronto, Canada</p>
+      </div>
       <div class="footer-social">
         <a href="https://www.instagram.com/ajitashahofficial/" target="_blank" rel="noopener" data-hover>Instagram</a>
         <a href="https://www.youtube.com/@ajitashah_official" target="_blank" rel="noopener" data-hover>YouTube</a>
@@ -273,17 +448,26 @@
         <a href="https://www.tiktok.com/@ajitashah_official" target="_blank" rel="noopener" data-hover>TikTok</a>
       </div>
     </div>
+    <!-- Compliance · required on every page -->
+    <div class="footer-legal">
+      <p><strong>Ajita Shah offers spiritual and energy healing and coaching.</strong>
+      This is not medical care, psychological treatment, or therapy, and it is not a
+      substitute for professional help. Nothing on this site is a diagnosis or a promise
+      of any particular outcome.</p>
+      <p class="footer-crisis">If you are in crisis, call or text <strong>9-8-8</strong>
+      — Canada's Suicide Crisis Helpline, available 24/7 in English and French.
+      If you are in immediate danger, call <strong>911</strong>.</p>
+    </div>
+
     <div class="footer-bottom">
       <p>© 2026 Ajita Shah. All rights reserved.</p>
       <p class="footer-credit">Concept design — Jobaki</p>
     </div>
   </footer>
 
-  <script src="vendor/three.min.js"></script>
-  <script src="vendor/gsap.min.js"></script>
-  <script src="vendor/ScrollTrigger.min.js"></script>
-  <script src="vendor/lenis.min.js"></script>
-  <script src="js/webgl.js"></script>
-  <script src="js/main.js"></script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

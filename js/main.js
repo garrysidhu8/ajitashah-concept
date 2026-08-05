@@ -55,20 +55,8 @@
   /* ══════════ PRELOADER ══════════ */
   var preloader = document.getElementById('preloader');
   var countEl = document.getElementById('preloaderCount');
-  var heroTitle = document.getElementById('heroTitle');
-
-  // Split hero title into letters
-  if (heroTitle) {
-    var text = heroTitle.textContent;
-    heroTitle.textContent = '';
-    text.split('').forEach(function (ch) {
-      var s = document.createElement('span');
-      s.className = 'ch';
-      s.innerHTML = ch === ' ' ? '&nbsp;' : ch;
-      heroTitle.appendChild(s);
-    });
-  }
-
+  // The hero headline is plain server-rendered text so it can be the LCP
+  // element — no per-letter splitting, no layout thrash before first paint.
   function revealHero() {
     if (!window.gsap) {
       if (preloader) preloader.style.display = 'none';
@@ -77,13 +65,10 @@
     var tl = gsap.timeline();
     tl.to(preloader, { opacity: 0, duration: 0.9, ease: 'power2.inOut' })
       .set(preloader, { display: 'none' })
-      .from('#heroTitle .ch', {
-        opacity: 0, y: 90, rotateX: -60, filter: 'blur(8px)',
-        duration: 1.4, stagger: 0.045, ease: 'power3.out'
-      }, '-=0.25')
-      .from('[data-hero-fade]', {
-        opacity: 0, y: 30, duration: 1.1, stagger: 0.12, ease: 'power2.out'
-      }, '-=0.9');
+      .from('.hero-content > *', {
+        opacity: 0, y: 26, duration: 1.2, stagger: 0.14, ease: 'power2.out'
+      }, '-=0.35')
+      .from('.hero-scroll', { opacity: 0, duration: 1, ease: 'power2.out' }, '-=0.6');
   }
 
   if (preloader && countEl && window.gsap && !REDUCED) {
@@ -212,6 +197,85 @@
     });
   }
 
+  /* ══════════ REDUCE-MOTION TOGGLE ══════════
+     A real, persisted control — not just a media-query hope. Stops the
+     breathing circle, marquee and pacer without hiding any content.
+  ══════════════════════════════════════════════ */
+  (function motionToggle() {
+    var btn = document.getElementById('motionToggle');
+    if (!btn) return;
+    var KEY = 'ajita_reduce_motion';
+    var on = false;
+    try { on = localStorage.getItem(KEY) === '1'; } catch (e) {}
+
+    function apply() {
+      document.documentElement.classList.toggle('reduce-motion', on);
+      btn.setAttribute('aria-pressed', String(on));
+      btn.textContent = on ? 'Motion reduced' : 'Reduce motion';
+    }
+    apply();
+
+    btn.addEventListener('click', function () {
+      on = !on;
+      try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+      apply();
+    });
+  })();
+
+  /* ══════════ GUIDED BREATH ══════════
+     Opt-in only. 90 seconds at the 5.5s-in / 5.5s-out resonance pace,
+     with a Stop control visible the whole time. A calming ritual —
+     deliberately makes no health claim.
+  ══════════════════════════════════════ */
+  (function guidedBreath() {
+    var startBtn = document.getElementById('breathStart');
+    var guide = document.getElementById('breathGuide');
+    var phaseEl = document.getElementById('breathPhase');
+    var progressEl = document.getElementById('breathProgress');
+    var stopBtn = document.getElementById('breathStop');
+    if (!startBtn || !guide) return;
+
+    var HALF = 5500;          // one phase
+    var TOTAL = 90000;        // 90s round
+    var phaseTimer = null, tickTimer = null, endTimer = null;
+
+    function stop() {
+      clearInterval(phaseTimer); clearInterval(tickTimer); clearTimeout(endTimer);
+      guide.hidden = true;
+      startBtn.hidden = false;
+      progressEl.style.width = '0%';
+      startBtn.focus({ preventScroll: true });
+    }
+
+    function start() {
+      var started = Date.now();
+      var inhale = true;
+      phaseEl.textContent = 'Breathe in';
+      guide.hidden = false;
+      startBtn.hidden = true;
+      stopBtn.focus({ preventScroll: true });
+
+      phaseTimer = setInterval(function () {
+        inhale = !inhale;
+        phaseEl.textContent = inhale ? 'Breathe in' : 'Breathe out';
+      }, HALF);
+
+      tickTimer = setInterval(function () {
+        var pct = Math.min(100, ((Date.now() - started) / TOTAL) * 100);
+        progressEl.style.width = pct + '%';
+      }, 250);
+
+      endTimer = setTimeout(function () {
+        phaseEl.textContent = 'Thank you.';
+        clearInterval(phaseTimer); clearInterval(tickTimer);
+        setTimeout(stop, 2600);
+      }, TOTAL);
+    }
+
+    startBtn.addEventListener('click', start);
+    stopBtn.addEventListener('click', stop);
+  })();
+
   /* ══════════ CHECK-IN ══════════
      Trauma-informed intake. Two rules hold this together:
      nothing the visitor types is ever stored or transmitted, and every
@@ -229,25 +293,30 @@
     }
 
     var REPLIES = {
-      exhausted: {
-        text: "Exhaustion that has no name usually isn't about sleep. It's what happens when " +
-              "you've carried something for a long time without ever being allowed to set it down.",
-        cta: 'Sit in the free circle', href: '#programs'
-      },
       stuck: {
-        text: "When something won't let you move past it, that isn't weakness. Part of you is " +
-              "still standing in that moment, waiting for someone to come back for it.",
-        cta: 'Talk with Ajita privately', href: '#begin'
+        text: "Feeling stuck rarely means you aren't trying. More often it means the thing " +
+              "holding you sits underneath the part you can see.",
+        cta: 'See how Ajita works', href: '#programs'
       },
-      mask: {
-        text: "Holding it together so well that nobody thinks to ask is its own kind of tiring. " +
-              "You don't have to perform that here.",
-        cta: 'Sit in the free circle', href: '#programs'
+      home: {
+        text: "The people closest to us are where the oldest patterns show up first. That " +
+              "doesn't mean something is wrong with you.",
+        cta: 'See how Ajita works', href: '#programs'
       },
-      patterns: {
-        text: "A pattern that keeps returning isn't a failure of willpower. It's something you " +
-              "learned early, still trying to keep you safe in a way that no longer fits.",
-        cta: 'Talk with Ajita privately', href: '#begin'
+      work: {
+        text: "Being overlooked while doing everything right wears down something deeper " +
+              "than confidence. It's worth understanding why it keeps happening.",
+        cta: 'See how Ajita works', href: '#programs'
+      },
+      money: {
+        text: "Money worry rarely stays in one place — it reaches into sleep, health, and " +
+              "the people around you. You're not being dramatic.",
+        cta: 'See how Ajita works', href: '#programs'
+      },
+      giving: {
+        text: "Giving everything and still feeling it isn't enough is exhausting in a way " +
+              "few people see. That pattern started somewhere.",
+        cta: 'See how Ajita works', href: '#programs'
       },
       looking: {
         text: "That's completely fine. Nothing here needs anything from you — stay as long as " +
@@ -336,6 +405,119 @@
       if (textEl) textEl.value = '';
       show(1);
     });
+  })();
+
+  /* ══════════ SCORECARD ══════════
+     Ajita's six categories, one question each. No numeric score is ever
+     shown — a distressed visitor should not be graded. We name the areas
+     they said "no" to and reflect them back. Nothing leaves the browser.
+  ══════════════════════════════════ */
+  (function scorecard() {
+    var root = document.getElementById('scorecard');
+    if (!root) return;
+
+    var AREAS = [
+      { key: 'money',    label: 'Money',           dot: '--ch-root',
+        q: 'Are you satisfied with your financial situation right now?' },
+      { key: 'career',   label: 'Career',          dot: '--ch-solar',
+        q: 'Are you satisfied with your job or the path your career is on?' },
+      { key: 'body',     label: 'Physical health', dot: '--ch-sacral',
+        q: 'Are you satisfied with your physical health and energy?' },
+      { key: 'people',   label: 'Relationships',   dot: '--ch-heart',
+        q: 'Are you satisfied with the closeness of your relationships?' },
+      { key: 'mind',     label: 'Inner life',      dot: '--ch-third-eye',
+        q: 'Do you feel you are managing your emotions and inner wellbeing?' },
+      { key: 'spirit',   label: 'Purpose',         dot: '--ch-crown',
+        q: 'Do you feel connected to a sense of purpose in your life?' }
+    ];
+
+    // Resolve the chakra vars to literal colours once. Assigning a var()
+    // reference to a transitioned property leaves `color` stuck at its old
+    // value, since unregistered custom properties don't interpolate.
+    var rootStyle = getComputedStyle(document.documentElement);
+    AREAS.forEach(function (a) {
+      a.hex = rootStyle.getPropertyValue(a.dot).trim();
+    });
+
+    var steps = root.querySelectorAll('.sc-step');
+    var bar = document.getElementById('scBar');
+    var countEl = document.getElementById('scCount');
+    var catEl = document.getElementById('scCategory');
+    var qEl = document.getElementById('scQuestion');
+    var idx = 0, heavy = [];
+
+    function show(name) {
+      steps.forEach(function (s) { s.classList.toggle('is-active', s.dataset.sc === name); });
+      var active = root.querySelector('.sc-step.is-active');
+      if (active) { active.setAttribute('tabindex', '-1'); active.focus({ preventScroll: true }); }
+    }
+
+    function render() {
+      var a = AREAS[idx];
+      bar.style.width = ((idx) / AREAS.length * 100) + '%';
+      countEl.textContent = (idx + 1) + ' of ' + AREAS.length;
+      catEl.textContent = a.label;
+      catEl.style.color = a.hex;
+      qEl.textContent = a.q;
+    }
+
+    function finish() {
+      bar.style.width = '100%';
+      var head = document.getElementById('scResultHead');
+      var list = document.getElementById('scAreas');
+      var note = document.getElementById('scResultNote');
+      var actions = document.getElementById('scActions');
+
+      if (!heavy.length) {
+        head.innerHTML = 'You answered yes to all six. That is <em>genuinely rare.</em>';
+        list.innerHTML = '';
+        note.textContent = 'If you came here anyway, something still brought you. That’s ' +
+          'worth paying attention to — and you’re welcome to just sit in the circle and listen.';
+      } else {
+        head.innerHTML = heavy.length === 1
+          ? 'One area is asking for <em>attention.</em>'
+          : 'These areas are carrying <em>the weight.</em>';
+        list.innerHTML = heavy.map(function (a) {
+          return '<li style="--dot: ' + a.hex + '">' + a.label + '</li>';
+        }).join('');
+        note.textContent = heavy.length >= 4
+          ? 'When this much feels heavy at once, it usually isn’t several separate problems. ' +
+            'It’s more often one pattern showing up in several places — which is the work Ajita does.'
+          : 'Ajita’s work starts by looking underneath what you named, rather than at the ' +
+            'surface of it. There is no rush, and no wrong place to begin.';
+      }
+
+      actions.innerHTML =
+        '<a href="#programs" class="btn-gold" data-hover>See how Ajita works</a>' +
+        '<a href="#begin" class="btn-ghost" data-hover>Ask about working together</a>';
+      actions.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var t = document.querySelector(a.getAttribute('href'));
+          if (!t) return;
+          e.preventDefault();
+          if (lenis) lenis.scrollTo(t, { offset: 0, duration: 1.6 });
+          else t.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+      show('result');
+    }
+
+    document.getElementById('scStart').addEventListener('click', function () {
+      idx = 0; heavy = [];
+      render(); show('q');
+    });
+
+    root.querySelectorAll('[data-sc-answer]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.dataset.scAnswer === 'no') heavy.push(AREAS[idx]);
+        idx++;
+        if (idx >= AREAS.length) finish();
+        else render();
+      });
+    });
+
+    document.getElementById('scQuit').addEventListener('click', function () { show('intro'); });
+    document.getElementById('scRestart').addEventListener('click', function () { show('intro'); });
   })();
 
   /* ══════════ VOICES SLIDER ══════════ */

@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Photographer originals and RAW files — 161MB, kept locally as the source of
+# truth. Only the optimized derivatives in assets/ get committed.
+*.CR3
+*.cr3
+/135mm-*.jpeg
+/135mm-*.jpg
+/Commune*.jpeg
+/Profile.jpg
+/source-photos/
