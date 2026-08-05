@@ -397,13 +397,337 @@
     });
 
     root.querySelectorAll('[data-ci-next]').forEach(function (btn) {
-      btn.addEventListener('click', function () { reflect(chosen); });
+      btn.addEventListener('click', function () {
+        // If the free text discloses crisis, stop the funnel: no reflection,
+        // no routing — only the crisis message. CRISIS_RE/CRISIS_MSG are
+        // shared with the chat guide below.
+        if (textEl && CRISIS_RE.test(textEl.value)) {
+          reflectionEl.innerHTML = CRISIS_MSG;
+          reflectionEl.classList.add('is-shown');
+          routeEl.innerHTML = '';
+          show(3);
+          return;
+        }
+        reflect(chosen);
+      });
     });
 
     document.getElementById('ciRestart').addEventListener('click', function () {
       chosen = null;
       if (textEl) textEl.value = '';
       show(1);
+    });
+  })();
+
+  /* ══════════ CRISIS DETECTION ══════════
+     Shared by every free-text input on the site. If someone discloses
+     crisis, the funnel stops — no recommendation, no booking push.
+  ══════════════════════════════════════ */
+  var CRISIS_RE = /suicid|kill(ing)? myself|end(ing)? (my|it|this) (life|all)|take (my|his|her|their) (own )?life|self.?harm|harm(ing)? myself|hurt(ing)? myself|cut(ting)? myself|want(ed)? to die|wish i (was|were) dead|better off (dead|without me)|don'?t want to (live|be here|exist|wake up)|no reason to (live|go on)|overdose|end it all/i;
+  var CRISIS_MSG =
+    "I'm really glad you told me, and I want you to have real human support right now — " +
+    "I'm only a website guide and this needs more than I can give. In Canada you can call " +
+    "or text <strong>9-8-8</strong>, the Suicide Crisis Helpline, any hour of the day. " +
+    "If you're in immediate danger, please call <strong>911</strong>. " +
+    "You deserve support from a real person.";
+
+  /* ══════════ GUIDE · CHAT ══════════
+     Scripted concierge. The flow: greet → pick what feels heaviest →
+     three yes/no questions from Ajita's own questionnaire → a warm
+     reflection → an honest recommendation → the three appointment
+     questions → a summary and her phone number. Client-side only;
+     nothing is transmitted. The scripted brain is deliberately shaped
+     like a request/response loop so a Claude serverless function can
+     replace it at deploy time without touching the UI.
+  ══════════════════════════════════════ */
+  (function guide() {
+    var launcher = document.getElementById('chatLauncher');
+    var panel = document.getElementById('chatPanel');
+    var log = document.getElementById('chatLog');
+    var io = document.getElementById('chatIo');
+    if (!launcher || !panel) return;
+
+    // Three questions per area, drawn from Ajita's questionnaire.
+    // Clinical items (illness, family history, panic, insomnia) are
+    // deliberately excluded. heavyIfYes flags reverse-worded items.
+    var AREAS = {
+      money: { label: 'Money', qs: [
+        { q: 'Do you feel money is hard to come by, no matter what you do?', heavyIfYes: true },
+        { q: 'Are you actively working towards your financial goals?', heavyIfYes: false },
+        { q: 'Do you feel the money due to you is held back by your circumstances?', heavyIfYes: true }
+      ]},
+      career: { label: 'Work & career', qs: [
+        { q: 'Are you working in the career of your choice?', heavyIfYes: false },
+        { q: 'Do you feel valued and appreciated in the work you do?', heavyIfYes: false },
+        { q: 'Are you satisfied with the direction your career is heading?', heavyIfYes: false }
+      ]},
+      health: { label: 'Health & energy', qs: [
+        { q: 'Do you make time for yourself every day to relax and recharge?', heavyIfYes: false },
+        { q: 'Do you get enough rest most nights?', heavyIfYes: false },
+        { q: 'Are you satisfied with your energy through the day?', heavyIfYes: false }
+      ]},
+      relationships: { label: 'Relationships', qs: [
+        { q: 'Do you feel supported and understood by the people close to you?', heavyIfYes: false },
+        { q: 'Do you have healthy boundaries in your relationships?', heavyIfYes: false },
+        { q: 'Are you able to resolve conflict with the people you love?', heavyIfYes: false }
+      ]},
+      peace: { label: 'Peace of mind', qs: [
+        { q: 'Do you feel generally content and at peace with yourself?', heavyIfYes: false },
+        { q: 'Do you get triggered or angry more easily than you would like?', heavyIfYes: true },
+        { q: 'Do you tend to keep your feelings to yourself until they overflow?', heavyIfYes: true }
+      ]},
+      purpose: { label: 'Purpose', qs: [
+        { q: 'Do you feel connected to a sense of purpose?', heavyIfYes: false },
+        { q: 'Have you made peace with your past?', heavyIfYes: false },
+        { q: 'Are you able to forgive the people who have wronged you?', heavyIfYes: false }
+      ]}
+    };
+
+    var state = { area: null, heavy: 0, qi: 0, book: {} };
+    var open = false, greeted = false;
+
+    /* — rendering — */
+    function addMsg(cls, html) {
+      var d = document.createElement('div');
+      d.className = 'chat-msg ' + cls;
+      d.innerHTML = html;
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+      return d;
+    }
+    function bot(html) { return addMsg('bot', html); }
+    function user(text) {
+      var d = document.createElement('div');
+      d.className = 'chat-msg user';
+      d.textContent = text;
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+    }
+    function chips(list) {
+      io.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'chat-chips';
+      list.forEach(function (c) {
+        var b = document.createElement('button');
+        b.className = 'chat-chip' + (c.quiet ? ' quiet' : '');
+        b.textContent = c.label;
+        b.addEventListener('click', function () { user(c.label); c.fn(); });
+        wrap.appendChild(b);
+      });
+      io.appendChild(wrap);
+      var first = wrap.querySelector('button');
+      if (first) first.focus({ preventScroll: true });
+    }
+    function freeText(placeholder, onSubmit, skipLabel, onSkip) {
+      io.innerHTML = '';
+      var row = document.createElement('div');
+      row.className = 'chat-text-row';
+      var ta = document.createElement('textarea');
+      ta.className = 'chat-textarea';
+      ta.rows = 2;
+      ta.placeholder = placeholder;
+      ta.setAttribute('aria-label', placeholder);
+      var send = document.createElement('button');
+      send.className = 'chat-send';
+      send.textContent = 'Send';
+      function submit() {
+        var v = ta.value.trim();
+        if (!v) return;
+        user(v);
+        if (CRISIS_RE.test(v)) { crisisStop(); return; }
+        onSubmit(v);
+      }
+      send.addEventListener('click', submit);
+      ta.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+      });
+      row.appendChild(ta); row.appendChild(send);
+      io.appendChild(row);
+      if (skipLabel) {
+        var sk = document.createElement('button');
+        sk.className = 'chat-skip';
+        sk.textContent = skipLabel;
+        sk.addEventListener('click', function () { user(skipLabel); onSkip(); });
+        io.appendChild(sk);
+      }
+      ta.focus({ preventScroll: true });
+    }
+    function goTo(sel) {
+      var t = document.querySelector(sel);
+      close();
+      if (!t) return;
+      if (lenis) lenis.scrollTo(t, { offset: 0, duration: 1.6 });
+      else t.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* — crisis — */
+    function crisisStop() {
+      addMsg('bot crisis', CRISIS_MSG);
+      chips([
+        { label: 'Close this chat', fn: close, quiet: true }
+      ]);
+    }
+
+    /* — flow — */
+    function greet() {
+      bot("Hi — I'm Ajita's website guide. I'm not Ajita, and I'm not a therapist, " +
+          "but I can help you find a gentle place to start, or set up time with her. " +
+          "How are you doing today?");
+      chips([
+        { label: 'Help me figure out where to start', fn: pickArea },
+        { label: "I'd like to book time with Ajita", fn: bookStart },
+        { label: "I'm just looking around", fn: justLooking, quiet: true }
+      ]);
+    }
+    function justLooking() {
+      bot("That's completely fine — everything here is yours to explore, and nothing " +
+          "needs anything from you. I'll be right here if you want me.");
+      chips([
+        { label: 'Actually, help me find a starting point', fn: pickArea, quiet: true },
+        { label: 'Close', fn: close, quiet: true }
+      ]);
+    }
+    function pickArea() {
+      bot('Which part of life feels heaviest right now?');
+      var list = Object.keys(AREAS).map(function (k) {
+        return { label: AREAS[k].label, fn: function () { startArea(k); } };
+      });
+      list.push({ label: 'Something else', fn: somethingElse, quiet: true });
+      chips(list);
+    }
+    function somethingElse() {
+      bot("Tell me in your own words, if you'd like. There's no wrong way to put it.");
+      freeText('Whatever comes out first is fine.', function () {
+        bot("Thank you for trusting me with that. What you're describing deserves a " +
+            "real conversation rather than a script — and that's exactly what Ajita is for.");
+        offerBooking();
+      }, "I'd rather not write it", function () {
+        bot("Completely fine. You can start with the free circle and just listen — " +
+            "no camera, no speaking needed.");
+        offerBooking();
+      });
+    }
+    function startArea(key) {
+      state.area = key; state.heavy = 0; state.qi = 0;
+      bot('Three quick questions — yes or no, and honest is better than impressive.');
+      askQ();
+    }
+    function askQ() {
+      var a = AREAS[state.area];
+      if (state.qi >= a.qs.length) { areaReflect(); return; }
+      var item = a.qs[state.qi];
+      bot(item.q);
+      chips([
+        { label: 'Yes', fn: function () { answer(item, true); } },
+        { label: 'No', fn: function () { answer(item, false); } },
+        { label: 'Prefer not to answer', fn: function () { state.qi++; askQ(); }, quiet: true }
+      ]);
+    }
+    function answer(item, saidYes) {
+      if (saidYes === item.heavyIfYes) state.heavy++;
+      state.qi++;
+      askQ();
+    }
+    function areaReflect() {
+      var label = AREAS[state.area].label.toLowerCase();
+      if (state.heavy >= 2) {
+        bot('From your answers, ' + label + " is carrying real weight right now — and " +
+            "you've likely been carrying it quietly for a while. That kind of pattern " +
+            "rarely shifts by pushing harder. It shifts when someone helps you look " +
+            "underneath it.");
+        bot("Ajita's <em>Rewrite Your Destiny</em> group works on exactly this over 90 days — " +
+            "and for something this persistent, a private conversation with her can " +
+            "tell you more in twenty minutes than any page here.");
+      } else {
+        bot('From your answers, ' + label + " sounds like it's asking for attention rather " +
+            "than rescue. That's a good place to be — small, steady care goes a long way " +
+            "from here.");
+        bot("The free <em>Becoming Unlimited</em> circle is a lovely way to begin — you can " +
+            "keep your camera off and simply listen.");
+      }
+      offerBooking();
+    }
+    function offerBooking() {
+      chips([
+        { label: 'Book time with Ajita', fn: bookStart },
+        { label: 'Show me the programs', fn: function () { goTo('#programs'); } },
+        { label: "I'm done for now", fn: close, quiet: true }
+      ]);
+    }
+
+    /* — booking: the three appointment questions — */
+    function bookStart() {
+      bot("Ajita likes to understand a little before a first conversation. " +
+          "Three short questions — you can skip any of them, and nothing is sent " +
+          "anywhere. This stays on your screen for you to share when you call.");
+      bot('What is your most pressing issue or concern right now?');
+      freeText('In your own words…', function (v) {
+        state.book.issue = v; bookDuration();
+      }, 'Skip this question', function () {
+        state.book.issue = null; bookDuration();
+      });
+    }
+    function bookDuration() {
+      bot('How long have you been experiencing it?');
+      chips([
+        { label: 'Less than a year', fn: function () { state.book.duration = 'Less than a year'; bookPrior(); } },
+        { label: 'One to five years', fn: function () { state.book.duration = 'One to five years'; bookPrior(); } },
+        { label: 'As long as I can remember', fn: function () { state.book.duration = 'As long as I can remember'; bookPrior(); } },
+        { label: 'Prefer not to say', fn: function () { state.book.duration = null; bookPrior(); }, quiet: true }
+      ]);
+    }
+    function bookPrior() {
+      bot('Have you sought help from other professionals before?');
+      chips([
+        { label: 'Yes', fn: function () { state.book.prior = 'Yes'; bookDone(); } },
+        { label: 'No', fn: function () { state.book.prior = 'No'; bookDone(); } },
+        { label: 'Prefer not to say', fn: function () { state.book.prior = null; bookDone(); }, quiet: true }
+      ]);
+    }
+    function bookDone() {
+      var b = state.book;
+      var lines = [];
+      if (state.area) lines.push('<strong>Area:</strong> ' + AREAS[state.area].label);
+      lines.push('<strong>Concern:</strong> ' + (b.issue ? b.issue : '(skipped)'));
+      lines.push('<strong>How long:</strong> ' + (b.duration || '(skipped)'));
+      lines.push('<strong>Help before:</strong> ' + (b.prior || '(skipped)'));
+      bot('Here is what you shared — it lives only on your screen:<br><br>' + lines.join('<br>'));
+      bot('The fastest way to reach Ajita right now is to call or text her at ' +
+          '<a href="tel:+14165793700">+1 416 579 3700</a>. Mention whatever feels ' +
+          'right from the above — or none of it. Online booking is on its way.');
+      chips([
+        { label: 'Start over', fn: function () { state = { area: null, heavy: 0, qi: 0, book: {} }; pickArea(); }, quiet: true },
+        { label: 'Close', fn: close, quiet: true }
+      ]);
+    }
+
+    /* — open/close — */
+    function openPanel() {
+      panel.hidden = false;
+      launcher.setAttribute('aria-expanded', 'true');
+      open = true;
+      if (!greeted) { greeted = true; greet(); }
+      var f = io.querySelector('button, textarea');
+      if (f) f.focus({ preventScroll: true });
+    }
+    function close() {
+      panel.hidden = true;
+      launcher.setAttribute('aria-expanded', 'false');
+      open = false;
+      launcher.focus({ preventScroll: true });
+    }
+    launcher.addEventListener('click', openPanel);
+    document.getElementById('chatClose').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && open) close();
+      // basic focus containment while open
+      if (e.key === 'Tab' && open) {
+        var els = panel.querySelectorAll('button, textarea, a[href]');
+        if (!els.length) return;
+        var first = els[0], last = els[els.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
   })();
 

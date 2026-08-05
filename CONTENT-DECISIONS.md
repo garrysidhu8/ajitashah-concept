@@ -230,7 +230,32 @@ being destroyed by a sepia filter forcing them into a near-black design.
 background — it fails WCAG AA badly. **Gold is fills and hairlines only, never
 text.** Violet carries all small type. Verified: zero contrast failures sitewide.
 
-## 16. WebP/AVIF encoding — TOOLING GAP
+## 16. Chat guide — SCRIPTED V1, LLM SWAP AT DEPLOY
+
+Garry asked for "a really smart chatbot" where people can book a meeting.
+Built 2026-08-05 as a **scripted concierge**, deliberately not an LLM yet:
+a static site has no server to hold an API key, and a key in browser JS is
+public. The flow is shaped as a request/response loop so a Claude serverless
+function (same pattern as the Lindsay-site concierge) can replace the brain at
+deploy time without changing the UI.
+
+Safety decisions baked in:
+- Discloses on open: not Ajita, not a therapist; nothing typed is saved or sent.
+- Six-area guidance uses only the non-clinical questionnaire items (§12 rules).
+- Crisis regex on every free-text input (chat + check-in). On match: funnel
+  stops — no recommendation, no booking push — 9-8-8/911 message only.
+  Pattern tuned against false positives: idioms like "this job is killing me"
+  do NOT trigger; "kill myself / ending my life / wish I were dead" do.
+- Booking = the three appointment questions Garry specified (pressing issue /
+  how long / prior help), all skippable, summarized on-screen only, ending at
+  her phone number.
+
+`TODO_CONTENT`: booking URL (she had an online scheduler in 2023 — ask what she
+uses now) and the email address (§9) — until then the only handoff is `tel:`.
+When the LLM brain lands: spend cap, rate limiting, max_tokens, no transcript
+storage, and adversarial testing per the 2026-07-30 strategy brief.
+
+## 17. WebP/AVIF encoding — TOOLING GAP
 
 This machine has neither `cwebp` nor WebP support in `sips`, so new derivatives
 cannot be encoded to WebP locally. Existing `assets/*.webp` predate this.

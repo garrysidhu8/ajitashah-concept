@@ -465,6 +465,29 @@
     </div>
   </footer>
 
+  <!-- ══════════ GUIDE · CHAT ══════════
+       Scripted concierge, client-side only. Swaps to a Claude serverless
+       brain at deploy time without changing this UI. -->
+  <button class="chat-launcher" id="chatLauncher" aria-haspopup="dialog"
+    aria-expanded="false" data-hover>
+    <span class="chat-launcher-dot" aria-hidden="true"></span>
+    Talk it through
+  </button>
+
+  <section class="chat-panel" id="chatPanel" role="dialog"
+    aria-label="Ajita's website guide" hidden>
+    <header class="chat-head">
+      <div>
+        <p class="chat-title">Ajita's website guide</p>
+        <p class="chat-sub">Not Ajita, and not a therapist — just here to help you find
+        a starting point. Nothing you type is saved or sent anywhere.</p>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat" data-hover>×</button>
+    </header>
+    <div class="chat-log" id="chatLog"></div>
+    <div class="chat-io" id="chatIo"></div>
+  </section>
+
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
   <script src="vendor/lenis.min.js" defer></script>
