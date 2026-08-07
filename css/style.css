@@ -825,6 +825,9 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 }
 .chat-launcher[aria-expanded="true"] { opacity: 0; pointer-events: none; }
 
+/* The [hidden] rule is load-bearing: display:flex below would otherwise
+   override the hidden attribute and the panel could never close. */
+.chat-panel[hidden] { display: none; }
 .chat-panel {
   position: fixed; right: 28px; bottom: 28px; z-index: 310;
   width: min(400px, calc(100vw - 32px));
