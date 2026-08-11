@@ -39,6 +39,19 @@ This deployment is a **demo for the client pitch**. Two things are intentional:
 | Content conflicts / unresolved facts | `CONTENT-DECISIONS.md` |
 | Photo audit | `ASSET-INVENTORY.md` |
 | Blog migration manifest (30 posts) | `SEO-MIGRATION.csv` |
+| Blog (30 posts, verbatim, slugs preserved) | `/<slug>/index.html` + `blog/index.html` |
+| Blog generator + content snapshot | `tools/build_blog.py` + `blog-data/posts.json` |
+| Her raw copy drops (2026-08-11) | `CONTENT-INTAKE-2026-08-11.md` |
+
+## Blog
+
+Her 30 live posts are migrated **word-for-word with identical URLs** — each
+lives at `/<slug>/index.html` in the repo root because that's where WordPress
+served it (`ajitashah.com/<slug>/`). No redirects are needed at launch. Don't
+edit post pages by hand: refresh `blog-data/posts.json` from
+`ajitashah.com/wp-json/wp/v2/posts?per_page=100` and rerun
+`python3 tools/build_blog.py` (also regenerates `blog/index.html` and
+`sitemap.xml`).
 
 ## Deploy
 

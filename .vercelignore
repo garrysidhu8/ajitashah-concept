@@ -1,0 +1,20 @@
+# Vercel ignores .gitignore when this file exists, so the photo-original
+# excludes are repeated here.
+.DS_Store
+*.CR3
+*.cr3
+135mm-*.jpeg
+135mm-*.jpg
+Commune*.jpeg
+Profile.jpg
+source-photos/
+
+# Internal working docs — not for the public demo URL
+README.md
+CONTENT-DECISIONS.md
+CONTENT-INTAKE-2026-08-11.md
+ASSET-INVENTORY.md
+SEO-MIGRATION.csv
+blog-data/
+tools/
+.gitignore
