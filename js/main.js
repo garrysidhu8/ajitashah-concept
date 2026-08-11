@@ -12,7 +12,7 @@
   var SOLO = new URLSearchParams(location.search).get('solo');
   if (SOLO) {
     document.documentElement.classList.add('solo');
-    document.querySelectorAll('main > *, .marquee, .footer').forEach(function (el) {
+    document.querySelectorAll('main > *, .footer').forEach(function (el) {
       if (el.id !== SOLO && !el.classList.contains(SOLO)) el.style.display = 'none';
     });
     document.querySelectorAll('[data-reveal]').forEach(function (el) {

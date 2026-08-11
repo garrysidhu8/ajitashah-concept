@@ -407,3 +407,16 @@ The 24 third-person case studies from her live site stay archived in
 content-extracted/ awaiting the phone conversation (§11) — they are her
 narrations, many with named medical conditions, and do not belong on a
 public wall in that form.
+
+**§19 addendum (same day):** Garry's direction — don't count what's on the
+page; amplify to her real scale. Stats strip now reads **Thousands of lives ·
+5 continents · 35+ years**. "Five continents" is her own bio claim (chunk 2
+intake). "Thousands of lives" is Garry-authorized 2026-08-11 — this partially
+walks back §2 (invented "1,000+ lives" was removed); it ships because Garry
+directs the pitch and Ajita reviews it, but it stays `TODO_CONTENT` until she
+confirms the scale herself. Added a looping world ribbon under the stats —
+every entry is a real location from her materials (Toronto · Dubai · London ·
+Mumbai · Los Angeles + 11 countries). Garry wants ~30 cities; we have 5 real
+ones. `TODO_CONTENT`: ask Ajita to list the cities her clients have come
+from — one email question — and the ribbon grows to whatever she names. No
+city is invented.

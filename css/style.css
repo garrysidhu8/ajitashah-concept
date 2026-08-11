@@ -1159,6 +1159,13 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 }
 .voices-stats i { color: var(--gold-deep); font-style: normal; font-size: 13px; }
 
+/* World ribbon inside Voices — full-bleed band between stats and the wall */
+.voices-cities { margin: 4px -48px 56px; }
+.voices-cities .marquee-track { animation-duration: 46s; }
+.reduce-motion .marquee-track,
+.reduced .marquee-track { animation: none; }
+@media (max-width: 900px) { .voices-cities { margin: 4px -24px 44px; } }
+
 .voice-wall {
   position: relative;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
