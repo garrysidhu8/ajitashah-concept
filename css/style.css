@@ -571,6 +571,12 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
   font-size: 15px; line-height: 2; color: var(--muted);
   max-width: 560px; margin: 0 auto 46px;
 }
+.sc-head { margin-bottom: 54px; }
+.sc-express { max-width: 560px; margin: 6px auto 42px; text-align: left; }
+.sc-rest-line {
+  font-family: var(--serif); font-size: 21px; line-height: 1.7;
+  color: var(--muted); max-width: 520px; margin: 0 auto 30px;
+}
 .sc-progress {
   width: 100%; max-width: 320px; height: 1px; margin: 0 auto 26px;
   background: rgba(79,52,90,.16);

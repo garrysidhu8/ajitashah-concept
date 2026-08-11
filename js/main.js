@@ -810,6 +810,13 @@
       qEl.textContent = a.q;
     }
 
+    function reset() {
+      idx = 0; heavy = [];
+      var t = document.getElementById('scText');
+      if (t) t.value = '';
+      render();
+    }
+
     function finish() {
       bar.style.width = '100%';
       var head = document.getElementById('scResultHead');
@@ -851,11 +858,6 @@
       show('result');
     }
 
-    document.getElementById('scStart').addEventListener('click', function () {
-      idx = 0; heavy = [];
-      render(); show('q');
-    });
-
     root.querySelectorAll('[data-sc-answer]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         if (btn.dataset.scAnswer === 'no') heavy.push(AREAS[idx]);
@@ -865,8 +867,32 @@
       });
     });
 
-    document.getElementById('scQuit').addEventListener('click', function () { show('intro'); });
-    document.getElementById('scRestart').addEventListener('click', function () { show('intro'); });
+    document.getElementById('scQuit').addEventListener('click', function () {
+      reset(); show('rest');
+    });
+    document.getElementById('scResume').addEventListener('click', function () {
+      reset(); show('q');
+    });
+    document.getElementById('scRestart').addEventListener('click', function () {
+      reset(); show('q');
+    });
+
+    // The open-up box on the result step. Client-side only. If the text
+    // discloses crisis, the routing CTAs disappear and only 9-8-8 remains.
+    var scText = document.getElementById('scText');
+    if (scText) {
+      scText.addEventListener('input', function () {
+        var note = document.getElementById('scResultNote');
+        var actions = document.getElementById('scActions');
+        if (CRISIS_RE.test(scText.value)) {
+          note.innerHTML = CRISIS_MSG;
+          actions.innerHTML = '';
+        }
+      });
+    }
+
+    // No "Begin" gate: question one is live as soon as the page is.
+    reset();
   })();
 
   /* ══════════ VOICES SLIDER ══════════ */
