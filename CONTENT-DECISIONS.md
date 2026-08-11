@@ -143,6 +143,34 @@ assessed."* A results-vary disclaimer sits with the testimonials.
 `TODO_CONTENT`: written consent on file for each testimonial? Real names or
 approved pseudonyms? Ajita's approval of the softened wording?
 
+**2026-08-11 full-site extraction — the complete picture.** Agents extracted
+every testimonial on her site (the case studies hide behind JetPopup AJAX and
+required a live browser session): **33 testimonials, 13 YouTube videos**, full
+verbatim archive in `content-extracted/testimonials.json`, compliance screen in
+`content-extracted/screened.json`.
+
+Screen result: **29 of 33 carry medical or outcome claims.** The four "ok"
+entries are ok only because they are video cards with no on-page text. The
+flagged set includes claims that go far beyond the homepage snapshot: a kidney-
+stone **surgery cancelled** the night before; **pregnancy at 42 after two failed
+IVF rounds**; a **Celiac diagnosis "overturned" with blood work**; 35-year
+psoriasis cleared in a month; a child's sexual-abuse trauma resolved **in one
+session**; children's services releasing a child; arthritis pain subsiding; a
+10-year chronic cough specialists couldn't treat; two addiction-cessation
+claims; multiple concrete business/legal outcomes ($100k over asking, lawsuit
+collapse, business doubled).
+
+**Published on the concept:** only the 4 no-text video cards (Shamaila, Laima,
+Maggie, Kasia) as click-to-load embeds, plus the 4 previously-softened written
+quotes. **Withheld:** all 24 written case studies and the 9 case-study videos.
+
+`TODO_CONTENT` (blocking for any testimonial expansion):
+1. Someone must **watch all 13 videos** — the spoken content was not screened,
+   and an embedded video carrying a medical claim is still a published claim.
+2. Consent records for every named client.
+3. Ajita's decision on the case-study library: rewritten as experience stories,
+   or retired. The raw material is preserved verbatim for that conversation.
+
 ## 12. Quiz questionnaire — PARTIALLY ADOPTED
 
 Source: `Website home page quizz Questionnaire.docx`, ~90 questions across ~15

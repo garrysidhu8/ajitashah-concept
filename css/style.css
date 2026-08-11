@@ -801,6 +801,12 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 .footer-crisis {
   border-left: 1px solid rgba(219,183,87,.36); padding-left: 24px;
 }
+.voices-videos {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  max-width: 1100px; margin: 64px auto 0;
+}
+@media (max-width: 1000px) { .voices-videos { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .voices-videos { grid-template-columns: 1fr; max-width: 420px; } }
 .voices-disclaimer {
   max-width: 620px; margin: 54px auto 0;
   font-size: 12px; line-height: 1.9; color: rgba(107,95,115,.85);
