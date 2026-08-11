@@ -437,6 +437,30 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 .ci-reflection .word { opacity: 0; }
 .ci-reflection.is-shown .word { opacity: 1; }
 
+/* Conversation turns inside the check-in */
+.ci-follow {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(20px, 2.4vw, 26px); line-height: 1.6;
+  color: var(--violet); margin: 26px auto 0; max-width: 620px;
+}
+.ci-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.ci-chip {
+  font-family: var(--serif); font-size: 17px; line-height: 1.4;
+  color: var(--ink); background: rgba(255,255,255,.75);
+  border: 1px solid rgba(79,52,90,.28); border-radius: 999px;
+  padding: 13px 24px; cursor: none;
+  transition: background .35s, color .35s, border-color .35s;
+}
+.ci-chip:hover { background: var(--violet); color: #fff; border-color: var(--violet); }
+.ci-chip.is-quiet {
+  font-family: var(--sans); font-size: 12px; letter-spacing: .12em;
+  color: var(--muted); background: none; border-color: transparent;
+  text-decoration: underline; text-underline-offset: 4px;
+}
+.ci-chip.is-quiet:hover { color: var(--violet); background: none; }
+.ci-chip:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+@media (hover: none), (max-width: 900px) { .ci-chip { cursor: pointer; } }
+
 .ci-crisis {
   font-size: 12px; line-height: 1.9; color: rgba(107,95,115,.78);
   border-top: 1px solid rgba(79,52,90,.10);

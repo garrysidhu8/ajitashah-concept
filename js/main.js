@@ -292,37 +292,122 @@
       try { localStorage.removeItem(STORE); } catch (e) {}
     }
 
-    var REPLIES = {
+    /* A three-turn conversation per doorway, not a single reflection:
+       acknowledge → how long → what's underneath → a woven reply that uses
+       both answers, ending at Ajita. Every turn is skippable, everything is
+       client-side, and the words stay in her clients' own register. */
+    var DUR = {
+      q: 'How long has it been like this?',
+      chips: [
+        { k: 'months', label: 'A few months' },
+        { k: 'year', label: 'A year or two' },
+        { k: 'years', label: 'Many years' },
+        { k: 'always', label: 'As long as I can remember' },
+        { k: 'unsure', label: "I'm not sure", quiet: true }
+      ],
+      ack: {
+        months: 'A few months is recent enough that it still surprises you. That matters — patterns are easiest to shift before they harden.',
+        year: "A year or two is long enough to be tired of it — and not so long that it's who you are.",
+        years: "Carrying something for years changes how you stand. You've been strong longer than anyone realises.",
+        always: 'When something has been there as long as memory, it stops looking like a problem and starts looking like "just how I am." It isn\'t.',
+        unsure: "Time blurs around the things we carry. That's normal."
+      },
+      phrase: {
+        months: 'these last months', year: 'this past year or two',
+        years: 'so many years', always: 'a whole lifetime', unsure: 'all this time'
+      }
+    };
+
+    var CONVO = {
       stuck: {
-        text: "Feeling stuck rarely means you aren't trying. More often it means the thing " +
-              "holding you sits underneath the part you can see.",
-        cta: 'See how Ajita works', href: '#programs'
+        ack: "Feeling stuck rarely means you aren't trying. More often it means the thing holding you sits underneath the part you can see.",
+        q2: 'When you imagine it changing, what gets in the way first?',
+        chips: [
+          { k: 'start', label: "I don't know where to start" },
+          { k: 'fear', label: 'Fear of choosing wrong' },
+          { k: 'people', label: 'The people around me' },
+          { k: 'tired', label: "I'm just so tired" }
+        ],
+        base: "Stuck isn't a lack of effort — after {dur}, it's usually one pattern underneath, making every road feel closed. {c} That underneath part is exactly where Ajita works.",
+        c: {
+          start: 'Not knowing where to start is itself the pattern talking.',
+          fear: 'The fear of choosing wrong usually guards an older wound than the choice itself.',
+          people: 'When the people around you hold the door shut, the work is finding your own footing first.',
+          tired: "And the tiredness is real — it's what carrying this costs."
+        }
       },
       home: {
-        text: "The people closest to us are where the oldest patterns show up first. That " +
-              "doesn't mean something is wrong with you.",
-        cta: 'See how Ajita works', href: '#programs'
+        ack: "The people closest to us are where the oldest patterns show up first. That doesn't mean something is wrong with you.",
+        q2: "At home, what's the hardest part right now?",
+        chips: [
+          { k: 'unheard', label: 'Feeling unheard' },
+          { k: 'tension', label: 'The constant tension' },
+          { k: 'alone', label: 'Feeling alone in it' },
+          { k: 'unreturned', label: "I give, and it isn't returned" }
+        ],
+        base: "Home is where the oldest patterns surface first — and after {dur}, what's happening there is rarely only about now. {c} This is exactly the kind of knot Ajita works with.",
+        c: {
+          unheard: 'Feeling unheard by the people closest to you is one of the loneliest things there is.',
+          tension: "Constant tension keeps your whole body braced — and that's exhausting in a way sleep doesn't fix.",
+          alone: 'Feeling alone inside a full house is its own kind of pain.',
+          unreturned: 'Giving without return usually began long before this relationship.'
+        }
       },
       work: {
-        text: "Being overlooked while doing everything right wears down something deeper " +
-              "than confidence. It's worth understanding why it keeps happening.",
-        cta: 'See how Ajita works', href: '#programs'
+        ack: "Being overlooked while doing everything right wears down something deeper than confidence. It's worth understanding why it keeps happening.",
+        q2: 'At work, what wears on you most?',
+        chips: [
+          { k: 'overlooked', label: 'Being passed over' },
+          { k: 'pressure', label: 'The pressure never stops' },
+          { k: 'people', label: 'The people' },
+          { k: 'pointless', label: 'It feels pointless' }
+        ],
+        base: "After {dur} of that, it stops being about the job. {c} Understanding why it keeps happening is where Ajita begins.",
+        c: {
+          overlooked: 'Being passed over while doing everything right asks a very old question — "am I seen?"',
+          pressure: 'Pressure that never lets up teaches your body to never let down.',
+          people: "Difficult people find the seams we haven't yet learned to protect.",
+          pointless: 'When it feels pointless, something deeper than the job is asking for meaning.'
+        }
       },
       money: {
-        text: "Money worry rarely stays in one place — it reaches into sleep, health, and " +
-              "the people around you. You're not being dramatic.",
-        cta: 'See how Ajita works', href: '#programs'
+        ack: "Money worry rarely stays in one place — it reaches into sleep, health, and the people around you. You're not being dramatic.",
+        q2: 'What does the money worry touch most?',
+        chips: [
+          { k: 'body', label: 'My sleep and my health' },
+          { k: 'people', label: 'My relationships' },
+          { k: 'self', label: 'How I feel about myself' },
+          { k: 'all', label: 'Everything at once' }
+        ],
+        base: "Money worry after {dur} isn't arithmetic anymore — it becomes the lens everything is seen through. {c} That lens is what Ajita helps take off.",
+        c: {
+          body: 'When it reaches sleep and health, your body is carrying the ledger.',
+          people: "When it reaches your relationships, it's costing more than money.",
+          self: 'When it decides how you feel about yourself, it has taken more than it should.',
+          all: "When it's everything at once, that's one pattern wearing four masks."
+        }
       },
       giving: {
-        text: "Giving everything and still feeling it isn't enough is exhausting in a way " +
-              "few people see. That pattern started somewhere.",
-        cta: 'See how Ajita works', href: '#programs'
-      },
-      looking: {
-        text: "That's completely fine. Nothing here needs anything from you — stay as long as " +
-              "you like, and leave whenever you want.",
-        cta: 'Keep reading', href: '#journey', quiet: true
+        ack: "Giving everything and still feeling it isn't enough is exhausting in a way few people see. That pattern started somewhere.",
+        q2: 'And when you give all of that — what comes back?',
+        chips: [
+          { k: 'notmuch', label: 'Not much' },
+          { k: 'criticism', label: 'Criticism' },
+          { k: 'moreasks', label: 'Only more asking' },
+          { k: 'stopped', label: "I've stopped noticing" }
+        ],
+        base: "After {dur} of giving more than comes back, the question isn't whether you're enough — you always were. {c} Ajita helps find where that bargain was first made.",
+        c: {
+          notmuch: "Emptiness where thanks should be teaches you to need less. That isn't peace — that's shrinking.",
+          criticism: 'Criticism in return for care cuts twice.',
+          moreasks: 'When giving only earns more asking, the well never refills.',
+          stopped: 'Not noticing anymore is what a heart does to stop hurting.'
+        }
       }
+    };
+    var LOOKING = {
+      text: 'That\'s completely fine. Nothing here needs anything from you — stay as long as you like, and leave whenever you want.',
+      cta: 'Keep reading', href: '#journey'
     };
 
     var steps = root.querySelectorAll('.ci-step');
@@ -356,30 +441,94 @@
       }
     }
 
-    // Reveal the reflection a beat late, word by word — an instant
-    // answer reads as a machine; a pause reads as someone thinking.
-    function reflect(key) {
-      var reply = REPLIES[key];
-      var words = reply.text.split(/\s+/);
-      reflectionEl.innerHTML = words.map(function (w) {
+    var followEl = document.getElementById('ciFollow');
+
+    // Reveal a line a beat late, word by word — an instant answer reads
+    // as a machine; a pause reads as someone thinking.
+    function say(text, followText) {
+      reflectionEl.classList.remove('is-shown');
+      reflectionEl.innerHTML = text.split(/\s+/).map(function (w) {
         return '<span class="word">' + w + '</span>';
       }).join(' ');
-
+      followEl.hidden = !followText;
+      followEl.textContent = followText || '';
       if (window.gsap && !REDUCED) {
         gsap.to('#ciReflection .word', {
-          opacity: 1, duration: 0.5, stagger: 0.055, delay: 0.6, ease: 'none'
+          opacity: 1, duration: 0.5, stagger: 0.05, delay: 0.6, ease: 'none'
         });
+        if (followText) {
+          gsap.fromTo(followEl, { opacity: 0 },
+            { opacity: 1, duration: 0.8, delay: 0.6 + text.split(/\s+/).length * 0.05 + 0.3 });
+        }
       } else {
         reflectionEl.classList.add('is-shown');
       }
+    }
 
-      var html = '<a href="' + reply.href + '" class="' +
-        (reply.quiet ? 'btn-ghost' : 'btn-gold') + '" data-hover>' + reply.cta + '</a>';
-      if (!reply.quiet) {
-        html += '<a href="#healer" class="ci-skip" data-hover>Or just keep reading</a>';
-      }
+    function chips(list) {
+      routeEl.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'ci-chips';
+      list.forEach(function (c) {
+        var b = document.createElement('button');
+        b.className = 'ci-chip' + (c.quiet ? ' is-quiet' : '');
+        b.textContent = c.label;
+        b.addEventListener('click', c.fn);
+        wrap.appendChild(b);
+      });
+      routeEl.appendChild(wrap);
+    }
+
+    // Turn 3: weave both answers into one reply, then the way to Ajita.
+    function weave(door, durKey, cKey) {
+      var d = CONVO[door];
+      var line = d.base
+        .replace('{dur}', DUR.phrase[durKey] || DUR.phrase.unsure)
+        .replace('{c}', cKey ? d.c[cKey] : '');
+      say(line.replace(/\s+/g, ' ').trim());
+      var html =
+        '<button class="btn-gold" id="ciTalk" data-hover>Talk with Ajita about this</button>' +
+        '<a href="#programs" class="btn-ghost" data-hover>See how she works</a>' +
+        '<a href="#healer" class="ci-skip" data-hover>Or just keep reading</a>';
       routeEl.innerHTML = html;
       bindSmooth(routeEl);
+      var talk = document.getElementById('ciTalk');
+      talk.addEventListener('click', function () {
+        // Hand off into the guide's intake flow — same door the site's
+        // booking CTA uses. Falls back to the contact section.
+        var book = document.getElementById('beginBook');
+        if (book) { book.click(); return; }
+        var t = document.querySelector('#begin');
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // Turn 2: how long → acknowledge it, then ask what's underneath.
+    function askUnderneath(door, durKey) {
+      var d = CONVO[door];
+      say(DUR.ack[durKey], d.q2);
+      chips(d.chips.map(function (c) {
+        return { label: c.label, fn: function () { weave(door, durKey, c.k); } };
+      }).concat([{ label: "I'd rather not say", quiet: true,
+        fn: function () { weave(door, durKey, null); } }]));
+    }
+
+    // Turn 1: acknowledge the door they chose, then ask how long.
+    function startConvo(door) {
+      if (door === 'looking') {
+        say(LOOKING.text);
+        routeEl.innerHTML = '<a href="' + LOOKING.href + '" class="btn-ghost" data-hover>' +
+          LOOKING.cta + '</a>';
+        bindSmooth(routeEl);
+        show(3);
+        return;
+      }
+      var d = CONVO[door];
+      say(d.ack, DUR.q);
+      chips(DUR.chips.map(function (c) {
+        return { label: c.label, quiet: c.quiet,
+          fn: function () { askUnderneath(door, c.k); } };
+      }));
       show(3);
     }
 
@@ -389,7 +538,7 @@
         try { localStorage.setItem(STORE, '1'); } catch (e) {}
 
         // Someone who says they're only browsing is not asked to open up.
-        if (chosen === 'looking') { reflect(chosen); return; }
+        if (chosen === 'looking') { startConvo(chosen); return; }
 
         echo.textContent = btn.textContent.trim();
         show(2);
@@ -408,7 +557,7 @@
           show(3);
           return;
         }
-        reflect(chosen);
+        startConvo(chosen);
       });
     });
 
