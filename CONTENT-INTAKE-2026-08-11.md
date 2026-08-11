@@ -137,3 +137,43 @@ Garry said more chunks are coming — append each below, verbatim, dated.
 Known gaps so far: the actual testimonials + case studies (only the page
 intro arrived), full About/bio (only 3 lines arrived), intro video file,
 "Stories of Transformation" destination content.
+
+## Chunk 4 — Two testimonial docx files (posted later on 2026-08-11)
+
+Sources: `~/Downloads/Samia brochure testimonials.docx` and
+`~/Downloads/Testimonials comprehensive.docx`. Garry's direction: the Voices
+section should feel like "a store where over a hundred people are sitting,
+bragging about how great she is."
+
+Brochure pull-quote (marked "Put on main page"):
+> If ever there was a way to transform a life of quiet desperation into
+> effective peaceful living, healing deep inner wounding surely ranks right
+> up there!
+
+Named testimonials (verbatim originals preserved in the docx files; both
+files kept in Downloads — key claims noted here):
+- **Susan, United States** — tried counselling/life coaching, "only limited
+  and temporary relief"; healed "deep childhood trauma"; tools; life changing.
+- **Ines, France** — "constant state of stress and anxiety … several panic
+  attacks during the day"; two months → "state of well-being without any
+  anxiety"; caring, spiritual, professional.
+- **Gloria Chia, Canada** — "crippling arthritis" pain "quickly subsided",
+  "resumed my normal life"; professional; would recommend.
+- **Jacqueline, Israel** — blame game/fear → owning power; CEO; "new lease"
+  for her and her business.
+- **Sanjay, India** — toxic divorce; support, solace, confidence; kindness,
+  spirituality, understanding of human psychology.
+- **Peter, Dubai** — financial problems, traumatic childhood, 2 divorces,
+  "emotionally broken" → "thriving in every aspect"; "God Sent."
+- **Michael, UK** — healer and teacher with a heart; mind → heart; clarity,
+  calm, personal evolution.
+- **Esther Lee, LA** — "lighter", not carrying "burdens/depressions/sorrows";
+  not a victim; healthier, energized, younger; awakening.
+- **Robert, Poland** — deep sorrow → courage and confidence; life with his
+  children.
+- **Girija, India** — calls it "her therapy"; problems felt "inbuilt and
+  incurable"; energy blocks; professional, wise, patient, genuine.
+- **Kishan Cheranda, Mumbai** — rejuvenation; sleep/energy new high;
+  "freedom from a dozen aches and pains and ailments"; brand new person.
+
+Adaptation decisions → CONTENT-DECISIONS.md §19.

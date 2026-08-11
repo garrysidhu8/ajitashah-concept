@@ -371,3 +371,39 @@ page intro. All woven into the home page. What changed and why:
 `TODO_CONTENT`: her home doc calls for an **intro video** after the quiz —
 no asset exists. Get the video (or drop the slot). And walk her through every
 softening above before anything ships.
+
+## 19. Testimonial wall ("the room") — 2026-08-11, NEEDS HER SIGN-OFF
+
+Garry's brief: the Voices section should feel like a room of a hundred people
+bragging about Ajita. Built as a three-column drifting wall of quotes + stats
+strip (20 voices · 8 countries · 35+ years) + her brochure pull-quote, on top
+of the existing featured slider and video row.
+
+**Hard rule honoured: no invented people.** The wall holds 12 real, named
+voices — 11 from the two 2026-08-11 docx files + Mobeka's already-softened
+site quote. The counts in the stats strip are countable on the page
+(12 wall + 4 slider + 4 videos = 20 voices; US, France, Canada, Israel,
+India, UAE, UK, Poland = 8 countries). If she wants a bigger room, she
+supplies more testimonials.
+
+**Per-person trims (all §11 lane — medical/clinical outcome claims out,
+subjective experience kept):**
+- Ines: dropped "panic attacks" and "without any anxiety" (clinical symptom
+  resolution); kept stress → well-being arc.
+- Gloria: dropped the arthritis story entirely (medical pain-resolution
+  claim); kept the professionalism/recommendation lines.
+- Esther Lee: dropped the word "depressions"; kept lighter/burdens/energized.
+- Girija: dropped "her therapy" (restricted framing) and "inbuilt and
+  incurable"; kept professional/wise/genuine + happiness line.
+- Kishan: dropped "freedom from a dozen aches and pains and ailments"
+  (medical); kept sleep/energy/new-person arc.
+- Susan: dropped the counselling/life-coaching comparison (superiority-over-
+  care claim) and "heal deep childhood trauma" as an outcome assertion; kept
+  look-at-myself/tools/life-changing.
+- Jacqueline, Sanjay, Peter, Michael, Robert: near-verbatim, only trimmed
+  for length.
+
+The 24 third-person case studies from her live site stay archived in
+content-extracted/ awaiting the phone conversation (§11) — they are her
+narrations, many with named medical conditions, and do not belong on a
+public wall in that form.

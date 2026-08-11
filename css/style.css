@@ -1142,6 +1142,100 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 }
 .voices-lede a:hover { color: var(--violet-bright); }
 
+/* ══════════ VOICES · THE ROOM ══════════
+   Three columns of real, named quotes drifting at different speeds — a room
+   full of people talking. Loop copies (.wall-dup) are aria-hidden; both
+   reduced-motion paths freeze the drift and hide the duplicates. */
+.voices-stats {
+  display: flex; justify-content: center; align-items: baseline;
+  gap: 22px; flex-wrap: wrap;
+  margin: 8px auto 44px;
+  font-family: var(--sans); font-size: 12px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+.voices-stats strong {
+  font-family: var(--serif); font-weight: 400; font-size: 30px;
+  letter-spacing: 0; color: var(--violet); margin-right: 6px;
+}
+.voices-stats i { color: var(--gold-deep); font-style: normal; font-size: 13px; }
+
+.voice-wall {
+  position: relative;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  max-width: 1120px; margin: 0 auto 56px;
+  height: 560px; overflow: hidden;
+}
+.wall-col { overflow: hidden; }
+.wall-track { display: flex; flex-direction: column; }
+.wall-col-1 .wall-track { animation: wall-drift 52s linear infinite; }
+.wall-col-2 .wall-track { animation: wall-drift 64s linear infinite; }
+.wall-col-3 .wall-track { animation: wall-drift 47s linear infinite; }
+.voice-wall:hover .wall-track { animation-play-state: paused; }
+@keyframes wall-drift { to { transform: translateY(-50%); } }
+
+.wall-list { list-style: none; margin: 0; padding: 0 0 24px; display: flex; flex-direction: column; gap: 24px; }
+.wall-card {
+  background: rgba(255,255,255,.55);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 26px 22px;
+  text-align: left;
+}
+.wall-card p {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 17.5px; line-height: 1.6; color: var(--ink);
+  margin: 0 0 16px;
+}
+.wall-card cite {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--sans); font-style: normal;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted);
+}
+.wall-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--wd, var(--gold)); flex-shrink: 0;
+}
+
+.wall-fade {
+  position: absolute; left: 0; right: 0; height: 90px;
+  z-index: 2; pointer-events: none;
+}
+.wall-fade-top { top: 0; background: linear-gradient(var(--bg), rgba(251,249,245,0)); }
+.wall-fade-bottom { bottom: 0; background: linear-gradient(rgba(251,249,245,0), var(--bg)); }
+
+/* Reduced motion (both the OS setting and the site toggle): freeze the room,
+   hide loop copies, let the column scroll naturally inside a shorter frame. */
+.reduce-motion .wall-track,
+.reduced .wall-track { animation: none; }
+.reduce-motion .wall-dup,
+.reduced .wall-dup { display: none; }
+.reduce-motion .wall-col,
+.reduced .wall-col { overflow-y: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .wall-track { animation: none !important; }
+  .wall-dup { display: none; }
+  .wall-col { overflow-y: auto; }
+}
+
+.voices-epigraph {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(21px, 3vw, 30px); line-height: 1.55;
+  color: var(--violet);
+  max-width: 760px; margin: 0 auto 72px;
+}
+
+@media (max-width: 900px) {
+  .voice-wall { grid-template-columns: 1fr 1fr; height: 520px; }
+  .wall-col-3 { display: none; }
+}
+@media (max-width: 620px) {
+  .voice-wall { grid-template-columns: 1fr; height: 460px; }
+  .wall-col-2 { display: none; }
+  .voices-stats { gap: 14px; }
+  .voices-stats strong { font-size: 24px; }
+}
+
 /* ══════════ REVEAL DEFAULTS ══════════ */
 [data-reveal] { opacity: 0; transform: translateY(48px); }
 .no-js [data-reveal], .reduced [data-reveal] { opacity: 1; transform: none; }
