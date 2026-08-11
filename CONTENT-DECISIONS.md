@@ -264,6 +264,40 @@ uses now) and the email address (§9) — until then the only handoff is `tel:`.
 When the LLM brain lands: spend cap, rate limiting, max_tokens, no transcript
 storage, and adversarial testing per the 2026-07-30 strategy brief.
 
+## 17a. Program landing pages — BUILT 2026-08-11, ADAPTATION NOTES
+
+Three pages built from her live-site copy (extracted verbatim by agents, then
+adapted): `/becoming-unlimited/`, `/omni-source/`, `/inner-os/`.
+
+Slugs: the first two match her live URLs exactly (equity transfers). **Inner OS
+is a NEW slug** — her page lives at `/mastery-for-conscious-leadership/`; at
+launch that URL needs a 301 to `/inner-os/`. Her `/executive-mastry/` page is an
+empty draft (typo'd slug, no content) — let it die.
+
+Compliance adaptations (her original → published):
+- "mindset shifts, therapy or spiritual tools" → "mindset work and spiritual
+  tools" (avoids deeper-than-therapy comparison)
+- What-clients-heal list: **"Physical diseases or conditions"** → "The weight
+  that health struggles place on a life" (RHPA §30 lane)
+- "Trauma — past life, childhood, ancestral…" → "Old wounds — childhood,
+  ancestral, or long-buried emotional memory"
+- "spiritual counselling" → "guidance" (per §5, applied consistently)
+- Inner OS "Regulate their nervous system" → "Stay sharp, recover fast…"
+  (kept the meaning, dropped the clinical verb); her line **"It's not
+  coaching. It's not therapy."** kept verbatim — it does real legal work
+- Her **timezone table is wrong on her own site**: "Tuesday 7pm–8:30pm EST /
+  8:00–9:30pm UAE / 1:00–2:30pm UK" — 7 pm Toronto is ~4 am UAE and ~midnight
+  UK. Published Toronto time only. `TODO_CONTENT`: confirm the intended
+  session time with her before adding conversions.
+- Her Conscious-Leadership inquiry form asks **current/desired monthly income
+  and "how much are you willing to invest"** — not reproduced; qualification
+  questions of that kind undercut the trauma-informed positioning. Her call.
+
+Videos: 3 YouTube embeds found on her `/omni-source/` (SDVGEySSJpU short,
+n3dhNv1aAiI, OyD9deB0wAA) — re-embedded as click-to-load youtube-nocookie
+facades. No videos exist on her Becoming Unlimited, Inner OS, About or Contact
+pages.
+
 ## 17. WebP/AVIF encoding — TOOLING GAP
 
 This machine has neither `cwebp` nor WebP support in `sips`, so new derivatives

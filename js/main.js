@@ -419,6 +419,24 @@
     });
   })();
 
+  /* ══════════ YOUTUBE FACADES ══════════
+     Program pages embed her videos as click-to-load thumbnails: no YouTube
+     JS, no cookies, no tracking until the visitor chooses to play.
+  ══════════════════════════════════════ */
+  document.querySelectorAll('.yt-facade').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.dataset.yt;
+      if (!id) return;
+      var frame = document.createElement('iframe');
+      frame.className = 'yt-frame';
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.title = btn.getAttribute('aria-label') || 'Video';
+      btn.replaceWith(frame);
+    });
+  });
+
   /* ══════════ CRISIS DETECTION ══════════
      Shared by every free-text input on the site. If someone discloses
      crisis, the funnel stops — no recommendation, no booking push.
