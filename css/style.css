@@ -811,6 +811,76 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
     border-top: 1px solid rgba(79,52,90,.14); padding-top: 20px; }
 }
 
+/* ══════════ PROGRAM LANDING PAGES ══════════ */
+.lp-hero {
+  padding: 190px 48px 90px;
+  background: radial-gradient(ellipse 75% 80% at 50% 10%, var(--bg-3) 0%, var(--bg) 72%);
+  text-align: center;
+}
+.lp-hero-inner { max-width: 860px; margin: 0 auto; }
+.lp-kicker {
+  font-size: 11px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 24px;
+}
+.lp-kicker .stage-dot { display: inline-block; margin: 0 10px 2px 0; vertical-align: middle; }
+.lp-title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(44px, 6.4vw, 84px); line-height: 1.05; margin-bottom: 26px;
+}
+.lp-title em { font-style: italic; color: var(--gold-bright); }
+.lp-lede {
+  font-family: var(--serif); font-size: 22px; line-height: 1.65;
+  color: var(--champagne); max-width: 640px; margin: 0 auto 40px;
+}
+.lp-facts {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.lp-fact {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line);
+  padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,.5);
+}
+
+.lp-main { max-width: 760px; margin: 0 auto; padding: 90px 24px 40px; }
+.lp-main h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 40px); line-height: 1.2;
+  margin: 64px 0 22px;
+}
+.lp-main h2:first-child { margin-top: 0; }
+.lp-main p { font-size: 15.5px; line-height: 2; color: var(--muted); margin-bottom: 20px; }
+.lp-main p strong { color: var(--champagne); font-weight: 500; }
+.lp-main blockquote {
+  font-family: var(--serif); font-style: italic;
+  font-size: 21px; line-height: 1.7; color: var(--champagne);
+  border-left: 2px solid var(--gold); padding-left: 26px; margin: 34px 0;
+}
+.lp-list { list-style: none; margin: 0 0 24px; }
+.lp-list li {
+  position: relative; padding: 10px 0 10px 30px;
+  font-size: 15.5px; line-height: 1.8; color: var(--muted);
+  border-bottom: 1px solid rgba(79,52,90,.08);
+}
+.lp-list li::before {
+  content: ''; position: absolute; left: 4px; top: 20px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--lp-accent, var(--gold));
+}
+.lp-note {
+  font-size: 13px !important; line-height: 1.9 !important;
+  color: rgba(107,95,115,.85) !important;
+  border-top: 1px solid var(--line); padding-top: 20px; margin-top: 44px;
+}
+.lp-back {
+  display: inline-block; margin-bottom: 26px;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); transition: color .3s;
+}
+.lp-back:hover { color: var(--violet); }
+@media (max-width: 700px) {
+  .lp-hero { padding: 150px 24px 70px; }
+}
+
 /* ══════════ GUIDE · CHAT ══════════ */
 .chat-launcher {
   position: fixed; right: 28px; bottom: 28px; z-index: 300;
@@ -939,6 +1009,68 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .chat-launcher:hover { transform: none; }
 }
+
+/* ══════════ CREATE AN INTENTIONAL LIFE ══════════ */
+.intentional { padding: 150px 48px; background: var(--bg-2); }
+.int-inner { max-width: 880px; margin: 0 auto; text-align: center; }
+.int-list {
+  list-style: none; margin: 56px auto 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px;
+  text-align: left; max-width: 820px;
+}
+.int-list a {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 20px 4px; border-bottom: 1px solid var(--line);
+  font-family: var(--serif); font-size: 21px; line-height: 1.4;
+  color: var(--champagne); text-decoration: none;
+  transition: color .3s ease, padding-left .3s ease;
+}
+.int-list a::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; align-self: center;
+}
+.int-list a:hover { color: var(--violet-bright); padding-left: 10px; }
+.int-note {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(19px, 2.4vw, 24px); line-height: 1.6;
+  color: var(--violet); max-width: 620px; margin: 64px auto 0;
+}
+@media (max-width: 760px) {
+  .intentional { padding: 100px 24px; }
+  .int-list { grid-template-columns: 1fr; gap: 0; }
+  .int-list a { font-size: 19px; }
+}
+
+/* ══════════ MY WORK · IN HER WORDS ══════════ */
+.mywork { padding: 160px 48px; background: var(--bg-3); }
+.mw-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+.mw-copy { margin-top: 52px; text-align: left; }
+.mw-copy p {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 17px; line-height: 1.95; color: var(--ink);
+  margin-bottom: 1.6em;
+}
+.mw-copy p:first-child {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 22px; line-height: 1.7; color: var(--violet);
+}
+.mw-signature {
+  font-family: var(--serif); font-style: italic;
+  font-size: 26px; color: var(--violet); margin-top: 12px;
+}
+@media (max-width: 760px) { .mywork { padding: 100px 24px; } }
+
+/* ══════════ VOICES · INTRO ══════════ */
+.voices-lede {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 16px; line-height: 1.9; color: var(--muted);
+  max-width: 600px; margin: 26px auto 56px;
+}
+.voices-lede a {
+  color: var(--violet); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-color: var(--gold-deep);
+}
+.voices-lede a:hover { color: var(--violet-bright); }
 
 /* ══════════ REVEAL DEFAULTS ══════════ */
 [data-reveal] { opacity: 0; transform: translateY(48px); }

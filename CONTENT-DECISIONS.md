@@ -210,6 +210,15 @@ Full manifest in `SEO-MIGRATION.csv`. All 30 fetched successfully.
 
 **Decision:** preserve every slug exactly. No post is renamed for keyword gain.
 
+**2026-08-11 — MIGRATED.** All 30 posts pulled from her WP REST API
+(`blog-data/posts.json` snapshot) and built as static pages at `/<slug>/` —
+root level, exactly matching her live URLs, zero redirects needed. Post body
+HTML is verbatim; only the page shell (nav, typography, compliance footer,
+BlogPosting schema) is ours. `/blog/` index page + Blog tab added to nav and
+footer. The 21 missing meta descriptions are auto-derived from each post's
+own opening paragraph (her words) until written properly. Rebuild with
+`python3 tools/build_blog.py` after refreshing the JSON.
+
 ## 15. Design direction — RESOLVED
 
 Palette reconciliation. Her live Elementor kit uses:
@@ -262,3 +271,41 @@ cannot be encoded to WebP locally. Existing `assets/*.webp` predate this.
 
 Fix: `brew install webp`. Until then derivatives are high-quality JPEG, which
 costs roughly 25–30% more bytes.
+
+## 18. Her 2026-08-11 copy drop — ADAPTED, NEEDS HER SIGN-OFF
+
+Garry posted her copy (see `CONTENT-INTAKE-2026-08-11.md` for verbatim
+originals): home page doc, a bio intro, and a Testimonials & Case Studies
+page intro. All woven into the home page. What changed and why:
+
+- **Hero** now uses her quote — "Become Unlimited through healing" — with
+  "For the ones who want more for their life" as the kicker. The former
+  headline ("You're welcome here, exactly as you are") moved into the sub-line,
+  so the empathy-first entry survives.
+- **Scorecard lede** now opens with her "What would you love to change?"
+  framing, near-verbatim.
+- **"Create an Intentional Life"** — her 8 recognition bullets, verbatim, as a
+  new section replacing the decorative marquee. Each routes to the check-in.
+- **Manifesto** is now her words: "What you don't heal, you repeat…unlimited
+  spiritual being…power as a creator."
+- **My Work** — new first-person section, her 4 paragraphs near-verbatim.
+  ONE change: "improvement in your mental and emotional health" →
+  "improvement in how you feel, think and carry yourself" (unlicensed
+  practitioner should not promise mental-health outcomes; Ontario risk).
+- **Bio (healer lede):** "worked with people across five continents" kept —
+  NEW CONFIRMED FACT, also now a stat (35+ years · 5 continents · Toronto,
+  replacing the weak "90-day programs" stat). TWO clauses softened:
+  "conditions that medicine called incurable" → cut entirely (medical claim);
+  "patterns that years of therapy could not shift" → "years of trying"
+  (implicit superiority-to-psychotherapy claim). The emotional shape —
+  suffering so old it feels like destiny — kept.
+- **Voices** retitled "Stories of Transformation" (her phrase) with her
+  proof-of-the-pudding intro adapted above the quotes. Deliberately NOT
+  adopted: "case-studies detailing the results I've helped my clients
+  achieve" — results-claim language (§11), and no case-study content exists
+  yet anyway.
+- **CTA button** → her words: "I am ready for a new life."
+
+`TODO_CONTENT`: her home doc calls for an **intro video** after the quiz —
+no asset exists. Get the video (or drop the slot). And walk her through every
+softening above before anything ships.
