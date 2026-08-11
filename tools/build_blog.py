@@ -66,8 +66,9 @@ def esc(value: str) -> str:
     return htmllib.escape(value, quote=True)
 
 
-def head(title, description, path, og_type="article"):
+def head(title, description, path, og_type="article", og_image=None):
     url = f"{SITE}{path}"
+    image = og_image or f"{SITE}/assets/og-image.jpg"
     return f"""<!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -82,7 +83,7 @@ def head(title, description, path, og_type="article"):
   <meta property="og:title" content="{esc(title)}">
   <meta property="og:description" content="{esc(description)}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="{SITE}/assets/og-image.jpg">
+  <meta property="og:image" content="{image}">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{esc(title)}">
@@ -148,7 +149,7 @@ CHAKRAS = ["ch-root", "ch-sacral", "ch-solar", "ch-heart",
            "ch-throat", "ch-third-eye", "ch-crown"]
 
 
-def article_jsonld(post, description):
+def article_jsonld(post, description, image_url=None):
     data = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -158,7 +159,7 @@ def article_jsonld(post, description):
         "dateModified": post["modified"],
         "url": f"{SITE}/{post['slug']}/",
         "mainEntityOfPage": f"{SITE}/{post['slug']}/",
-        "image": f"{SITE}/assets/og-image.jpg",
+        "image": image_url or f"{SITE}/assets/og-image.jpg",
         "author": {"@type": "Person", "@id": f"{SITE}/#ajita", "name": "Ajita Shah"},
         "publisher": {"@type": "Person", "@id": f"{SITE}/#ajita", "name": "Ajita Shah"},
     }
@@ -168,6 +169,11 @@ def article_jsonld(post, description):
 def build():
     posts = json.loads((ROOT / "blog-data" / "posts.json").read_text(encoding="utf-8"))
     posts.sort(key=lambda p: p["date"], reverse=True)
+
+    # Featured images: slug -> {file, w, h}, downloaded from her WP media
+    # library into assets/blog/ (see blog-data/images.json).
+    images_path = ROOT / "blog-data" / "images.json"
+    images = json.loads(images_path.read_text(encoding="utf-8")) if images_path.exists() else {}
 
     meta_by_slug = {}
     csv_path = ROOT / "SEO-MIGRATION.csv"
@@ -198,9 +204,18 @@ def build():
                     f'<span>{label}</span>'
                     f'<strong>{p["title"]["rendered"]}</strong></a>')
 
-        page = f"""{head(page_title, description, f"/{slug}/")}
+        img = images.get(slug)
+        img_url = f"{SITE}/{img['file']}" if img else None
+        hero_html = ""
+        if img:
+            hero_html = (f'\n      <figure class="post-hero">'
+                         f'<img src="/{img["file"]}" alt="{esc(title_text)}" '
+                         f'width="{img["w"]}" height="{img["h"]}" '
+                         f'fetchpriority="high" decoding="async"></figure>\n')
+
+        page = f"""{head(page_title, description, f"/{slug}/", og_image=img_url)}
   <script type="application/ld+json">
-{article_jsonld(post, description)}
+{article_jsonld(post, description, img_url)}
   </script>
 </head>
 <body class="blog-body">
@@ -218,7 +233,7 @@ def build():
           Ajita Shah
         </p>
       </header>
-
+{hero_html}
       <!-- Post body reproduced verbatim from ajitashah.com — do not edit here;
            refresh blog-data/posts.json and rerun tools/build_blog.py instead. -->
       <div class="post-content">
@@ -253,7 +268,12 @@ def build():
         content = post["content"]["rendered"]
         description = meta_by_slug.get(slug) or first_sentences(first_paragraph(content))
         chakra = CHAKRAS[i % len(CHAKRAS)]
-        cards.append(f"""      <a class="blog-card" href="/{slug}/" data-hover>
+        img = images.get(slug)
+        thumb = ""
+        if img:
+            thumb = (f'\n        <img class="blog-card-img" src="/{img["file"]}" alt="" '
+                     f'width="{img["w"]}" height="{img["h"]}" loading="lazy" decoding="async">')
+        cards.append(f"""      <a class="blog-card" href="/{slug}/" data-hover>{thumb}
         <p class="blog-card-meta">
           <span class="blog-card-dot" style="background: var(--{chakra})" aria-hidden="true"></span>
           <time datetime="{post["date"]}">{fmt_date(post["date"])}</time>
@@ -294,6 +314,7 @@ def build():
         ("becoming-unlimited", "2026-08-11"),
         ("omni-source", "2026-08-11"),
         ("inner-os", "2026-08-11"),
+        ("videos", "2026-08-11"),
     ]
 
     urls = [f"""  <url>

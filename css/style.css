@@ -1153,3 +1153,13 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
   [data-reveal] { opacity: 1; transform: none; }
   .manifesto-text .word { opacity: 1; }
 }
+
+/* ══════════ VIDEOS PAGE ══════════ */
+.lp-main-wide { max-width: 1100px; }
+.lp-videos-feature { grid-template-columns: 1fr; max-width: 860px; }
+.yt-facade-big { aspect-ratio: 16 / 9; }
+.yt-label em {
+  display: block; font-style: normal; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,249,245,.75); margin-top: 4px;
+}
