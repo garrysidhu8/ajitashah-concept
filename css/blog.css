@@ -277,6 +277,80 @@
   .post-pager-link.is-next { text-align: left; }
 }
 
+/* ══════════ TESTIMONIALS PAGE ══════════
+   Reuses the .voices section styles from style.css; these rules cover only
+   what the standalone page adds: the intro letter, the static masonry grid,
+   and the closing CTA. */
+.t-page { padding-top: 140px; }
+
+.t-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(44px, 7vw, 76px);
+  line-height: 1.08;
+  color: var(--ink);
+  margin: 16px 0 40px;
+}
+.t-title em { font-style: italic; color: var(--violet); }
+
+.t-intro {
+  max-width: 620px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.t-intro p {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--ink);
+  margin-bottom: 1.2em;
+}
+.t-intro p:first-child {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--violet);
+}
+.t-intro a {
+  color: var(--violet);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--gold-deep);
+}
+.t-intro a:hover { color: var(--violet-bright); }
+.t-intro-sign {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--violet);
+}
+
+.t-grid {
+  columns: 3 300px;
+  column-gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto 72px;
+  text-align: left;
+}
+.t-grid .wall-card {
+  break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+.t-cta { padding: 24px 0 40px; }
+.t-cta h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 4.5vw, 42px);
+  color: var(--ink);
+  margin-bottom: 26px;
+}
+.t-cta h2 em { font-style: italic; color: var(--violet); }
+
+@media (max-width: 640px) {
+  .t-page { padding-top: 110px; }
+}
+
 /* ══════════ FEATURED IMAGES ══════════ */
 .post-hero {
   max-width: 860px; margin: 0 auto 56px; padding: 0 24px;

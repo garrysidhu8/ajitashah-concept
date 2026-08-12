@@ -115,7 +115,7 @@ FOOTER = """  <footer class="footer">
       <nav class="footer-links">
         <a href="/#healer" data-hover>About</a>
         <a href="/#programs" data-hover>Programs</a>
-        <a href="/#voices" data-hover>Testimonials</a>
+        <a href="/testimonials/" data-hover>Testimonials</a>
         <a href="/blog/" data-hover>Blog</a>
         <a href="/#begin" data-hover>Contact</a>
       </nav>
@@ -323,6 +323,10 @@ def build():
   </url>
   <url>
     <loc>{SITE}/blog/</loc>
+    <lastmod>{max(p["modified"] for p in posts)[:10]}</lastmod>
+  </url>
+  <url>
+    <loc>{SITE}/testimonials/</loc>
     <lastmod>{max(p["modified"] for p in posts)[:10]}</lastmod>
   </url>"""]
     for slug, mod in STATIC_PAGES:

@@ -420,3 +420,17 @@ Mumbai · Los Angeles + 11 countries). Garry wants ~30 cities; we have 5 real
 ones. `TODO_CONTENT`: ask Ajita to list the cities her clients have come
 from — one email question — and the ribbon grows to whatever she names. No
 city is invented.
+
+## 20. Testimonials page — 2026-08-11, NEEDS HER SIGN-OFF
+
+`/testimonials/` built as the full room: her intro copy (chunk 1) near-verbatim
+as a signed first-person letter — the "case-studies detailing the results"
+clause still not used (§18), "results I've been able to achieve" softened to
+"what working with me has meant for other people". All 16 written voices in
+fuller versions than the home wall (same §19 trims: no arthritis, no panic
+attacks, no "therapy", no ailments list), + stats strip, world ribbon, the
+4 video testimonials as plain YouTube links (page ships no JS), disclaimer,
+and a "Your story could be next" CTA into the scorecard. Footer "Testimonials"
+now points here sitewide (home, blog template, this page); home Voices section
+gained "Read all their stories →". Sitemap includes /testimonials/ via
+tools/build_blog.py.

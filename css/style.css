@@ -1225,6 +1225,15 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
   .wall-col { overflow-y: auto; }
 }
 
+.voices-all { margin: -40px 0 72px; }
+.voices-all a {
+  font-family: var(--sans); font-size: 13px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--violet);
+  border-bottom: 1px solid var(--gold-deep); padding-bottom: 4px;
+}
+.voices-all a:hover { color: var(--violet-bright); }
+.voices-all i { font-style: normal; }
+
 .voices-epigraph {
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: clamp(21px, 3vw, 30px); line-height: 1.55;
