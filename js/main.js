@@ -63,18 +63,20 @@
       return;
     }
     var tl = gsap.timeline();
-    tl.to(preloader, { opacity: 0, duration: 0.9, ease: 'power2.inOut' })
+    tl.to(preloader, { opacity: 0, duration: 0.5, ease: 'power2.inOut' })
       .set(preloader, { display: 'none' })
       .from('.hero-content > *', {
         opacity: 0, y: 26, duration: 1.2, stagger: 0.14, ease: 'power2.out'
-      }, '-=0.35')
+      }, '-=0.25')
       .from('.hero-scroll', { opacity: 0, duration: 1, ease: 'power2.out' }, '-=0.6');
   }
 
   if (preloader && countEl && window.gsap && !REDUCED) {
+    // Kept under a second on purpose: the ritual reads, but mobile Lighthouse
+    // (and real phones) spend the wait staring at a blank cream screen.
     var counter = { v: 0 };
     gsap.to(counter, {
-      v: 100, duration: 1.9, ease: 'power2.inOut',
+      v: 100, duration: 0.7, ease: 'power2.inOut',
       onUpdate: function () { countEl.textContent = Math.round(counter.v); },
       onComplete: function () {
         if (document.readyState === 'complete') revealHero();

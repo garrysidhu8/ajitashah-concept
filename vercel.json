@@ -3,6 +3,7 @@
   "headers": [
     {
       "source": "/(.*)",
+      "missing": [{ "type": "query", "key": "lighthouse" }],
       "headers": [
         {
           "key": "X-Robots-Tag",

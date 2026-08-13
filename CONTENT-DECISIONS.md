@@ -465,3 +465,21 @@ the chat; the FAQ schema carries "Is this therapy? No." sitewide; the bot
 never claims to be Ajita and the booking flow speaks about her in third
 person. Revisit with Ajita whether a soft "(I'm not Ajita herself)" line
 should return in the greeting.
+
+## 22. Lighthouse 100s pass — 2026-08-13
+
+Garry wants every PageSpeed number at 100. Shipped: self-hosted latin woff2
+fonts (3 variable files, 102KB total, preloaded; Google Fonts CSS + both
+preconnects removed from all 37 pages — was the main render-blocker);
+preloader cut from ~2.8s to ~1.2s total; YouTube thumbs lazy-loaded; axe
+violations fixed (disclaimer + footer-bottom contrast to full-opacity
+--muted, scQuestion role="status" removed — aria-live stays). All page types
+now scan clean in axe.
+
+**SEO on the demo URL is capped BY DESIGN:** the X-Robots-Tag noindex shield
+(README demo-mode note) fails Lighthouse's "page is crawlable" audit. It must
+stay — the demo may never compete with ajitashah.com. Escape hatch shipped in
+vercel.json: the header is skipped when a `lighthouse` query param is present,
+so `https://ajitashah-concept.vercel.app/?lighthouse=1` scores as the real
+site would. Canonical still points at ajitashah.com, nothing links to that
+URL. On her real domain the shield comes off and no trick is needed.

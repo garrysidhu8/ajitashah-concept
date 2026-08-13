@@ -88,9 +88,8 @@ def head(title, description, path, og_type="article", og_image=None):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{esc(title)}">
   <meta name="twitter:description" content="{esc(description)}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/cormorant.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/manrope.woff2">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/blog.css">"""
 

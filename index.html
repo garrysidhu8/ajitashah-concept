@@ -21,10 +21,8 @@
   <meta name="twitter:title" content="Spiritual Healer in Toronto | Ajita Shah">
   <meta name="twitter:description" content="A calm place to slow down, feel heard, and begin at whatever pace is yours.">
   <meta name="twitter:image" content="https://ajitashah.com/assets/og-image.jpg">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/manrope.woff2">
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Structured data. No credentialing or medical claims asserted anywhere;
@@ -192,7 +190,7 @@
           <div class="sc-progress" aria-hidden="true"><span id="scBar"></span></div>
           <p class="sc-count" id="scCount">1 of 6</p>
           <p class="sc-category" id="scCategory"></p>
-          <h2 class="sc-question" id="scQuestion" role="status" aria-live="polite"></h2>
+          <h2 class="sc-question" id="scQuestion" aria-live="polite"></h2>
           <div class="sc-answers">
             <button class="btn-ghost" data-sc-answer="yes" data-hover>Yes</button>
             <button class="btn-ghost" data-sc-answer="no" data-hover>No</button>
@@ -704,22 +702,22 @@
            held for review — see CONTENT-DECISIONS.md §11. -->
       <div class="voices-videos" data-reveal>
         <button class="yt-facade" data-yt="wUBAnxOA2Ck" data-hover aria-label="Play video testimonial from Shamaila">
-          <img src="https://i.ytimg.com/vi/wUBAnxOA2Ck/hqdefault.jpg" alt="" width="480" height="360">
+          <img src="https://i.ytimg.com/vi/wUBAnxOA2Ck/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="yt-play" aria-hidden="true"></span>
           <span class="yt-label">Shamaila — in her own words</span>
         </button>
         <button class="yt-facade" data-yt="p2xotPTVyao" data-hover aria-label="Play video testimonial from Laima">
-          <img src="https://i.ytimg.com/vi/p2xotPTVyao/hqdefault.jpg" alt="" width="480" height="360">
+          <img src="https://i.ytimg.com/vi/p2xotPTVyao/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="yt-play" aria-hidden="true"></span>
           <span class="yt-label">Laima — in her own words</span>
         </button>
         <button class="yt-facade" data-yt="d6sfv4Tw-Uo" data-hover aria-label="Play video testimonial from Maggie">
-          <img src="https://i.ytimg.com/vi/d6sfv4Tw-Uo/hqdefault.jpg" alt="" width="480" height="360">
+          <img src="https://i.ytimg.com/vi/d6sfv4Tw-Uo/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="yt-play" aria-hidden="true"></span>
           <span class="yt-label">Maggie — in her own words</span>
         </button>
         <button class="yt-facade" data-yt="-TbmwRo75e0" data-hover aria-label="Play video testimonial from Kasia">
-          <img src="https://i.ytimg.com/vi/-TbmwRo75e0/hqdefault.jpg" alt="" width="480" height="360">
+          <img src="https://i.ytimg.com/vi/-TbmwRo75e0/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="yt-play" aria-hidden="true"></span>
           <span class="yt-label">Kasia — in her own words</span>
         </button>
@@ -820,6 +818,6 @@
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
   <script src="vendor/lenis.min.js" defer></script>
-  <script src="js/main.js?v=3" defer></script>
+  <script src="js/main.js?v=4" defer></script>
 </body>
 </html>
