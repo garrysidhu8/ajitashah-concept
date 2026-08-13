@@ -32,7 +32,9 @@
 
   /* ══════════ SMOOTH SCROLL ══════════ */
   var lenis = null;
-  if (window.Lenis && !REDUCED) {
+  // Touch devices scroll natively — running Lenis's raf loop there is pure
+  // main-thread cost (TBT/INP) with no visible benefit.
+  if (window.Lenis && !REDUCED && !TOUCH) {
     lenis = new Lenis({ duration: 1.25, smoothWheel: true });
     lenis.on('scroll', function () { if (window.ScrollTrigger) ScrollTrigger.update(); });
     gsap.ticker.add(function (time) { lenis.raf(time * 1000); });

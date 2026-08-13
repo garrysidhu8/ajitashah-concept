@@ -231,8 +231,11 @@
 
         <!-- STEP 1 · the question -->
         <div class="ci-step is-active" data-step="1">
-          <img src="assets/portrait-warm.jpg" alt="Ajita Shah seated, resting her chin on her hand, smiling at the camera"
-            class="ci-portrait" width="1400" height="985" loading="lazy" decoding="async">
+          <img src="assets/portrait-warm-700.webp"
+            srcset="assets/portrait-warm-700.webp 700w, assets/portrait-warm-1050.webp 1050w"
+            sizes="(max-width: 520px) 70vw, 340px"
+            alt="Ajita Shah seated, resting her chin on her hand, smiling at the camera"
+            class="ci-portrait" width="700" height="492" loading="lazy" decoding="async">
           <p class="section-label centered">A moment, before anything else</p>
           <h2 class="ci-question">How are you, <em>really?</em></h2>
           <p class="ci-permission">You don't need a reason big enough to be here.
@@ -316,9 +319,11 @@
           </div>
         </div>
         <div class="healer-visual">
-          <img src="assets/healer-studio.jpg"
+          <img src="assets/healer-studio-800.webp"
+            srcset="assets/healer-studio-800.webp 800w, assets/healer-studio-1400.webp 1400w"
+            sizes="(max-width: 900px) 92vw, 46vw"
             alt="Ajita Shah standing beside a white fireplace in a bright room"
-            class="healer-portrait" width="1600" height="1067" loading="lazy" decoding="async">
+            class="healer-portrait" width="800" height="534" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -359,7 +364,10 @@
     <!-- ══════════ JOURNEY · PARALLAX ══════════ -->
     <section class="journey" id="journey">
       <div class="journey-media">
-        <img src="assets/hero-caves.webp" alt="Ajita Shah seated before ancient cave temples" class="journey-img" id="journeyImg">
+        <img src="assets/hero-caves-1600.webp"
+          srcset="assets/hero-caves-900.webp 900w, assets/hero-caves-1600.webp 1600w"
+          sizes="100vw" width="1600" height="785" loading="lazy" decoding="async"
+          alt="Ajita Shah seated before ancient cave temples" class="journey-img" id="journeyImg">
         <div class="journey-overlay"></div>
       </div>
       <div class="journey-content">
@@ -818,6 +826,6 @@
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
   <script src="vendor/lenis.min.js" defer></script>
-  <script src="js/main.js?v=4" defer></script>
+  <script src="js/main.js?v=5" defer></script>
 </body>
 </html>
