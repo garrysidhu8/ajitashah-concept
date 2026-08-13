@@ -121,6 +121,13 @@ Ajita answered *"Email — TBA."* Phone is confirmed: **+1 416 579 3700**
 There is currently **no working email contact path**. Blocks the contact page,
 the application flow, and the priority list.
 
+**2026-08-13 — BOOKING RESOLVED.** Her real Calendly is connected:
+`calendly.com/ajitashah/30min` — "Complimentary Consultation", 30 min, Eastern
+Time, web-conferencing link on confirmation, live availability verified. Wired
+via `data-booking-url`; every booking path (chat intake, check-in "Talk with
+Ajita", Book a Private Session) now ends at her actual calendar, phone kept as
+secondary. Email remains TBA.
+
 ## 10. Pricing currency — TODO_CONTENT
 
 Both prices quoted in **USD** by a Toronto-based practitioner. Intentional
