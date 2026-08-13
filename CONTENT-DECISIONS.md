@@ -441,3 +441,27 @@ and a "Your story could be next" CTA into the scorecard. Footer "Testimonials"
 now points here sitewide (home, blog template, this page); home Voices section
 gained "Read all their stories →". Sitemap includes /testimonials/ via
 tools/build_blog.py.
+
+## 21. Chat guide reframed "alive" — 2026-08-13, COMPLIANCE TRADE-OFF LOGGED
+
+Garry's direction: the chat should feel lively and live — "the universe is
+asking them to open up in a safe space" — and he explicitly did not want the
+"Not Ajita, and not a therapist" header line.
+
+Shipped: launcher now reads "How are you feeling?" with a breathing glow and
+pulsing live dot; panel header is a dark cosmic band with twinkling stars,
+titled "The universe is listening" with a live dot; sub line is now warmth +
+privacy ("safe, judgment-free… nothing is saved, nothing is sent"). Every bot
+message first appears as breathing typing dots, then becomes words (message
+queue; delay scales with length). Greeting now opens space first ("how are
+you feeling, really?" with free text) before offering paths.
+
+**Removed at Garry's direction:** the explicit "not Ajita / not a therapist"
+disclosure in the chat UI. Mitigations that remain: crisis regex on every
+free-text input fires IMMEDIATELY (bypasses the typing queue — flushQueue()),
+9-8-8 message unchanged; the compliance footer ("not medical care,
+psychological treatment, or therapy") renders on every page directly beneath
+the chat; the FAQ schema carries "Is this therapy? No." sitewide; the bot
+never claims to be Ajita and the booking flow speaks about her in third
+person. Revisit with Ajita whether a soft "(I'm not Ajita herself)" line
+should return in the greeting.

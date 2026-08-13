@@ -795,16 +795,21 @@
   <button class="chat-launcher" id="chatLauncher" aria-haspopup="dialog"
     aria-expanded="false" data-hover>
     <span class="chat-launcher-dot" aria-hidden="true"></span>
-    Talk it through
+    How are you feeling?
   </button>
 
+  <!-- Reframed 2026-08-13 per Garry: warm, alive, universe-is-listening — the
+       clinical "not Ajita / not a therapist" header line removed at his
+       direction (see CONTENT-DECISIONS.md §21). Crisis detection unchanged. -->
   <section class="chat-panel" id="chatPanel" role="dialog"
-    aria-label="Ajita's website guide" hidden>
+    aria-label="A safe space to share" hidden>
     <header class="chat-head">
-      <div>
-        <p class="chat-title">Ajita's website guide</p>
-        <p class="chat-sub">Not Ajita, and not a therapist — just here to help you find
-        a starting point. Nothing you type is saved or sent anywhere.</p>
+      <div class="chat-stars" aria-hidden="true"></div>
+      <div class="chat-head-text">
+        <p class="chat-title"><span class="chat-live" aria-hidden="true"></span>The
+        universe is listening</p>
+        <p class="chat-sub">A safe, judgment-free space. Whatever you share stays
+        between you and this screen — nothing is saved, nothing is sent.</p>
       </div>
       <button class="chat-close" id="chatClose" aria-label="Close chat" data-hover>×</button>
     </header>
@@ -815,6 +820,6 @@
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
   <script src="vendor/lenis.min.js" defer></script>
-  <script src="js/main.js?v=2" defer></script>
+  <script src="js/main.js?v=3" defer></script>
 </body>
 </html>

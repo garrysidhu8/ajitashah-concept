@@ -666,7 +666,35 @@
       log.scrollTop = log.scrollHeight;
       return d;
     }
-    function bot(html) { return addMsg('bot', html); }
+    /* The queue is what makes the guide feel alive: each bot message first
+       appears as breathing dots, then becomes words — like someone on the
+       other side actually typing. Crisis messages bypass it (immediate). */
+    var queue = [], pumping = false;
+    function pump() {
+      if (pumping) return;
+      var item = queue.shift();
+      if (!item) return;
+      pumping = true;
+      if (item.kind === 'bot') {
+        var t = addMsg('bot is-typing',
+          '<span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>');
+        setTimeout(function () {
+          t.classList.remove('is-typing');
+          t.innerHTML = item.html;
+          log.scrollTop = log.scrollHeight;
+          pumping = false; pump();
+        }, item.wait);
+      } else {
+        item.fn();
+        pumping = false; pump();
+      }
+    }
+    function bot(html) {
+      queue.push({ kind: 'bot', html: html,
+        wait: 480 + Math.min(html.length * 5, 720) });
+      pump();
+    }
+    function flushQueue() { queue.length = 0; pumping = false; }
     function user(text) {
       var d = document.createElement('div');
       d.className = 'chat-msg user';
@@ -675,6 +703,10 @@
       log.scrollTop = log.scrollHeight;
     }
     function chips(list) {
+      queue.push({ kind: 'io', fn: function () { renderChips(list); } });
+      pump();
+    }
+    function renderChips(list) {
       io.innerHTML = '';
       var wrap = document.createElement('div');
       wrap.className = 'chat-chips';
@@ -690,6 +722,12 @@
       if (first) first.focus({ preventScroll: true });
     }
     function freeText(placeholder, onSubmit, skipLabel, onSkip) {
+      queue.push({ kind: 'io', fn: function () {
+        renderFreeText(placeholder, onSubmit, skipLabel, onSkip);
+      } });
+      pump();
+    }
+    function renderFreeText(placeholder, onSubmit, skipLabel, onSkip) {
       io.innerHTML = '';
       var row = document.createElement('div');
       row.className = 'chat-text-row';
@@ -731,22 +769,35 @@
       else t.scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* — crisis — */
+    /* — crisis — immediate, no typing theatre, queue cleared */
     function crisisStop() {
+      flushQueue();
       addMsg('bot crisis', CRISIS_MSG);
-      chips([
+      renderChips([
         { label: 'Close this chat', fn: close, quiet: true }
       ]);
     }
 
     /* — flow — */
     function greet() {
-      bot("Hi — I'm Ajita's website guide. I'm not Ajita, and I'm not a therapist, " +
-          "but I can help you find a gentle place to start, or set up time with her. " +
-          "How are you doing today?");
+      bot("Welcome. You've found a quiet corner of the universe.");
+      bot("This is a safe space — whatever you say here is heard without judgment, " +
+          "and it stays between you and this screen.");
+      bot("So… how are you feeling, <em>really?</em>");
+      freeText("Say it however it comes. I'm listening.", function () {
+        heard();
+      }, "I'd rather tap than type", function () { paths(); });
+    }
+    function heard() {
+      bot("Thank you for trusting this space with that. Every word has been " +
+          "heard — you don't have to carry it alone.");
+      paths();
+    }
+    function paths() {
+      bot("Whenever you're ready, here's where we can go together:");
       chips([
-        { label: 'Help me figure out where to start', fn: pickArea },
-        { label: "I'd like to book time with Ajita", fn: bookStart },
+        { label: 'Help me find where to start', fn: pickArea },
+        { label: "I'd like time with Ajita", fn: bookStart },
         { label: "I'm just looking around", fn: justLooking, quiet: true }
       ]);
     }
