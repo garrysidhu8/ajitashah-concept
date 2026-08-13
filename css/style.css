@@ -278,6 +278,7 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
   box-shadow: 0 18px 50px -12px rgba(79,52,90,.40);
 }
 .btn-gold.large { padding: 22px 56px; font-size: 13px; }
+.btn-ghost.large { padding: 22px 44px; font-size: 13px; }
 .btn-ghost {
   border: 1px solid rgba(79,52,90,.30); color: var(--ivory);
 }
@@ -867,6 +868,16 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
 }
 .begin h2 em { font-style: italic; color: var(--gold-bright); }
 .begin p { color: var(--muted); font-size: 16px; line-height: 1.9; margin-bottom: 48px; }
+.begin-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center; }
+.begin-phone {
+  margin: 30px 0 0 !important; font-size: 15px !important;
+}
+.begin-phone a {
+  font-family: var(--serif); font-size: 24px; color: var(--violet);
+  letter-spacing: .04em;
+  border-bottom: 1px solid var(--gold-deep); padding-bottom: 2px;
+}
+.begin-phone a:hover { color: var(--violet-bright); }
 .begin-note { font-size: 12px !important; letter-spacing: .2em; text-transform: uppercase; margin-top: 28px; color: var(--muted); }
 
 /* ══════════ FOOTER ══════════ */
@@ -1118,6 +1129,28 @@ button.btn-gold, button.btn-ghost { background-color: transparent; }
   padding: 2px 6px; transition: color .3s;
 }
 .chat-close:hover { color: #fff; }
+
+/* Always-visible direct line under the cosmic header */
+.chat-quick {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 22px;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--sans);
+}
+.chat-quick-label {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); margin-right: auto;
+}
+.chat-quick a {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--violet);
+  border: 1px solid rgba(79,52,90,.3); border-radius: 999px;
+  padding: 6px 14px;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.chat-quick a:hover { background: var(--violet); color: #fff; border-color: var(--violet); }
 
 /* Typing dots — the guide "breathes" before it speaks */
 .chat-msg.is-typing { display: flex; gap: 5px; align-items: center; min-height: 20px; }

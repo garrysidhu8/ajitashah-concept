@@ -800,10 +800,25 @@
     function paths() {
       bot("Whenever you're ready, here's where we can go together:");
       chips([
+        { label: 'Talk to Ajita right away', fn: contactNow },
         { label: 'Help me find where to start', fn: pickArea },
-        { label: "I'd like time with Ajita", fn: bookStart },
         { label: "I'm just looking around", fn: justLooking, quiet: true }
       ]);
+    }
+    /* Direct line to Ajita — no questions in the way. */
+    function contactNow() {
+      bot("Of course — here's Ajita, directly. Whatever feels easiest:");
+      var list = [
+        { label: 'Call her — +1 416 579 3700', fn: function () { location.href = 'tel:+14165793700'; } },
+        { label: 'Text her', fn: function () { location.href = 'sms:+14165793700'; } }
+      ];
+      if (BOOKING_URL) {
+        list.push({ label: 'Book a phone call', fn: function () {
+          window.open(BOOKING_URL, '_blank', 'noopener');
+        } });
+      }
+      list.push({ label: 'Keep exploring instead', fn: paths, quiet: true });
+      chips(list);
     }
     function justLooking() {
       bot("That's completely fine — everything here is yours to explore, and nothing " +
@@ -875,64 +890,15 @@
     }
     function offerBooking() {
       chips([
-        { label: 'Book time with Ajita', fn: bookStart },
+        { label: 'Talk to Ajita about this', fn: contactNow },
         { label: 'Show me the programs', fn: function () { goTo('#programs'); } },
         { label: "I'm done for now", fn: close, quiet: true }
       ]);
     }
 
-    /* — booking: the three appointment questions — */
-    function bookStart() {
-      bot("Ajita likes to understand a little before a first conversation. " +
-          "Three short questions — you can skip any of them, and nothing is sent " +
-          "anywhere. This stays on your screen for you to share when you call.");
-      bot('What is your most pressing issue or concern right now?');
-      freeText('In your own words…', function (v) {
-        state.book.issue = v; bookDuration();
-      }, 'Skip this question', function () {
-        state.book.issue = null; bookDuration();
-      });
-    }
-    function bookDuration() {
-      bot('How long have you been experiencing it?');
-      chips([
-        { label: 'Less than a year', fn: function () { state.book.duration = 'Less than a year'; bookPrior(); } },
-        { label: 'One to five years', fn: function () { state.book.duration = 'One to five years'; bookPrior(); } },
-        { label: 'As long as I can remember', fn: function () { state.book.duration = 'As long as I can remember'; bookPrior(); } },
-        { label: 'Prefer not to say', fn: function () { state.book.duration = null; bookPrior(); }, quiet: true }
-      ]);
-    }
-    function bookPrior() {
-      bot('Have you sought help from other professionals before?');
-      chips([
-        { label: 'Yes', fn: function () { state.book.prior = 'Yes'; bookDone(); } },
-        { label: 'No', fn: function () { state.book.prior = 'No'; bookDone(); } },
-        { label: 'Prefer not to say', fn: function () { state.book.prior = null; bookDone(); }, quiet: true }
-      ]);
-    }
-    function bookDone() {
-      var b = state.book;
-      var lines = [];
-      if (state.area) lines.push('<strong>Area:</strong> ' + AREAS[state.area].label);
-      lines.push('<strong>Concern:</strong> ' + (b.issue ? b.issue : '(skipped)'));
-      lines.push('<strong>How long:</strong> ' + (b.duration || '(skipped)'));
-      lines.push('<strong>Help before:</strong> ' + (b.prior || '(skipped)'));
-      bot('Here is what you shared — it lives only on your screen:<br><br>' + lines.join('<br>'));
-      if (BOOKING_URL) {
-        bot('Whenever you\'re ready: <a href="' + BOOKING_URL + '" target="_blank" ' +
-            'rel="noopener">pick a time with Ajita →</a><br><br>Bring whatever feels ' +
-            'right from the above — or none of it. You can also call or text her at ' +
-            '<a href="tel:+14165793700">+1 416 579 3700</a>.');
-      } else {
-        bot('The fastest way to reach Ajita right now is to call or text her at ' +
-            '<a href="tel:+14165793700">+1 416 579 3700</a>. Mention whatever feels ' +
-            'right from the above — or none of it. Online booking is on its way.');
-      }
-      chips([
-        { label: 'Start over', fn: function () { state = { area: null, heavy: 0, qi: 0, book: {} }; pickArea(); }, quiet: true },
-        { label: 'Close', fn: close, quiet: true }
-      ]);
-    }
+    /* — booking: straight to her. The old three-question intake was asking
+       too much of people who had already decided (Garry, 2026-08-13). — */
+    function bookStart() { contactNow(); }
 
     /* — open/close — */
     function openPanel() {
@@ -952,19 +918,12 @@
     launcher.addEventListener('click', openPanel);
     document.getElementById('chatClose').addEventListener('click', close);
 
-    // "Book a Private Session" opens the guide straight at the intake
-    // questions — every booking path runs through the same gentle flow.
-    var beginBook = document.getElementById('beginBook');
-    if (beginBook) {
-      beginBook.addEventListener('click', function () {
-        panel.hidden = false;
-        launcher.setAttribute('aria-expanded', 'true');
-        open = true;
-        greeted = true;
-        user('Book a Private Session');
-        bookStart();
-      });
-    }
+    // Every "book a call" anchor on the page gets its href from the single
+    // data-booking-url attribute; no URL configured = the anchor disappears.
+    document.querySelectorAll('a[data-booking-link]').forEach(function (a) {
+      if (BOOKING_URL) a.href = BOOKING_URL;
+      else a.remove();
+    });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) close();
       // basic focus containment while open

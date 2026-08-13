@@ -483,3 +483,23 @@ vercel.json: the header is skipped when a `lighthouse` query param is present,
 so `https://ajitashah-concept.vercel.app/?lighthouse=1` scores as the real
 site would. Canonical still points at ajitashah.com, nothing links to that
 URL. On her real domain the shield comes off and no trick is needed.
+
+## 23. Contact-first conversion — 2026-08-13
+
+Garry: the chat asked too many questions of people who already wanted to
+reach her; contact should be effortless. Changes:
+
+- **The three-question booking intake is gone** (§16's appointment questions
+  retired). Every "book/talk" path now lands on the direct chooser: Call her
+  (number shown) · Text her · Book a phone call (Calendly). The chat keeps
+  its generic open-up flow (feelings → six areas → small reflection) but
+  contact is now one tap from anywhere: chips lead with "Talk to Ajita right
+  away", and a persistent Call/Text/Book bar sits under the chat header.
+- **#begin is a contact hub**: Call Ajita now (gold) · Text her · Book a
+  phone call + the phone number in serif. Replaced the single
+  "I am ready for a new life" button that routed into the retired intake.
+- **Nav CTA on every page** is now "Contact Ajita" → #begin (hero keeps
+  "Find where to start" → scorecard, so the open-up funnel stays).
+- All "Book a call" anchors take their href from body[data-booking-url]
+  (currently Calendly /ajitashah/30min) via [data-booking-link]; no URL =
+  the anchor removes itself.

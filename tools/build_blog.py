@@ -104,7 +104,7 @@ NAV = """  <header class="nav scrolled blog-nav">
       <a href="/blog/" class="is-active" data-hover>Blog</a>
     </nav>
     <div class="nav-right">
-      <a href="/#scorecard" class="nav-cta" data-hover>Find where to start</a>
+      <a href="/#begin" class="nav-cta" data-hover>Contact Ajita</a>
     </div>
   </header>"""
 
