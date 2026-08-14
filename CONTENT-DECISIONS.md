@@ -503,3 +503,31 @@ reach her; contact should be effortless. Changes:
 - All "Book a call" anchors take their href from body[data-booking-url]
   (currently Calendly /ajitashah/30min) via [data-booking-link]; no URL =
   the anchor removes itself.
+
+## 24. Case-study universe — 2026-08-14, TWO CARDS WITHHELD
+
+Garry: her testimonials are the gold mine — mirror ajitashah.com/testimonial/
+in full, word-for-word, glorified, "people floating in the universe."
+
+Shipped on /testimonials/: 22 of her 24 case studies verbatim (teaser +
+Issue/Healing/Result exactly as she wrote them), in floating cloud-backdrop
+cards. Her 9 case-study videos are matched to their people (Samia, Shaneze,
+Gurtej, Gary, Sundip, Michelle, Mobeka, Raouf, Vishesh) and play via YouTube.
+The other 15 people carry AI-generated ILLUSTRATIVE portraits (Higgsfield
+Soul 2.0, assets/people/, fictional faces) — disclosed in the disclaimer as
+illustrative. Generator: tools/build_case_studies.py from
+blog-data/case-studies.json; regenerate after edits.
+
+**Withheld — not published at any direction without Ajita's informed
+decision:** P G Gerald (an 8-year-old's sexual-abuse disclosure) and
+Wolfgang (an 8-year-old's suicide note / children's-services removal). Both
+narrate a minor's gravest private crisis as marketing. They remain in
+content-extracted/ for the phone conversation — and both are arguably the
+most urgent things to REMOVE from her live site, where they are public
+today.
+
+Also noted for the phone list: the published set still contains her adult
+medical-outcome narrations (kidney-stone surgery avoided, IVF predictions,
+post-surgery pain claims, "12 years of medical treatments had not helped").
+They ship because they mirror her own public page onto a noindexed demo at
+Garry's direction; the §11 launch-blocker stands for the real domain.
